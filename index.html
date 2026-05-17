@@ -53,6 +53,8 @@ body{
   min-height:0;
   overflow:hidden;
   background:var(--bg);
+  display:flex;
+  flex-direction:column;
 }
 .nav{
   display:flex;
@@ -111,8 +113,22 @@ body{
 #nav-coach.active::after{background:#a78bfa}
 
 /* SCREENS */
-.screen{display:none;position:absolute;top:0;left:0;right:0;bottom:0;overflow-y:scroll;-webkit-overflow-scrolling:touch;background:var(--bg);padding-bottom:20px;}
-.screen.active{display:block}
+.screen{
+  display:none;
+  width:100%;
+  height:100%;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  padding-bottom:80px;
+  background:var(--bg);
+}
+.screen.active{
+  display:block;
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+}
 .screen::-webkit-scrollbar{display:none}
 
 /* HEADER */
@@ -203,15 +219,23 @@ body{
 
 /* COACH */
 .coach-container{display:flex;flex-direction:column;height:100%}
-#screen-coach{display:none;flex-direction:column}
+/* coach screen uses .screen styles */
 #screen-coach.active{
   display:flex;
   flex-direction:column;
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  overflow:hidden;
+}
+#screen-coach .chat-area{
+  flex:1;
+  min-height:0;
+  overflow-y:scroll;
 }
 .chat-area{
   flex:1;
   min-height:0;
-  overflow-y:auto;
+  overflow-y:scroll;
   -webkit-overflow-scrolling:touch;
   padding:16px;
   display:flex;
@@ -762,7 +786,7 @@ body{
 ">Burning off the squishiness 🔥</div>
         <h1 style="font-size:18px;font-weight:600;letter-spacing:-.2px;margin-top:1px">Good morning, Adrian</h1>
       </div>
-      <span class="phase-badge" style="margin-left:auto">PHASE 2</span>
+      <span class="phase-badge" style="margin-left:auto">PHASE 3</span>
     </div>
     <div class="header-sub" id="home-date">Monday · Free Week</div>
   </div>
@@ -806,7 +830,7 @@ body{
   <!-- Today's session -->
   <div class="today-block" onclick="openWarmup()">
     <div class="today-tag">Today's Session</div>
-    <div class="today-title" id="today-title">MON — Lower Day</div>
+    <div class="today-title" id="today-title">Lower Body</div>
     <div class="today-sub" id="today-sub">Squat + VMO + Posterior Chain</div>
     <div class="today-meta">
       <span class="meta-pill" id="today-ex-count">7 exercises</span>
@@ -854,15 +878,16 @@ body{
 
   <!-- Phase 2 key reminder -->
   <div class="card">
-    <div class="card-title">Phase 2 — Key Rules</div>
+    <div class="card-title">Phase 3 — Recomposition Rules</div>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="font-size:12px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Add 2.5–5kg when last set felt RPE ≤8</div>
-      <div style="font-size:12px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Paused deadlift replaces RDL as primary hinge</div>
-      <div style="font-size:12px;color:var(--yellow);display:flex;gap:8px"><span>⚠</span>Bench re-entry: GREEN gate only (neck quiet 4+ weeks)</div>
-      <div style="font-size:12px;color:var(--red);display:flex;gap:8px"><span>✗</span>No heavy overhead barbell. No grinding reps.</div>
+      <div style="font-size:12px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Add 2.5–5kg to main lifts when last set RPE ≤8 cleanly</div>
+      <div style="font-size:12px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Spoto press: bar 2cm off chest — never touch if ribs flare</div>
+      <div style="font-size:12px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Conditioning 2–3x/week — the recomp lever, not optional</div>
+      <div style="font-size:12px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Protein anchor 40g+ at first meal every day</div>
+      <div style="font-size:12px;color:var(--yellow);display:flex;gap:8px"><span>⚠</span>Right base of skull 5+/10 → remove pressing, rows + carries only</div>
+      <div style="font-size:12px;color:var(--red);display:flex;gap:8px"><span>✗</span>No heavy overhead barbell. No grinding past RPE 9.</div>
     </div>
   </div>
-</div>
 
 <!-- WARM-UP SCREEN -->
 <div id="screen-warmup" class="screen">
@@ -921,7 +946,7 @@ body{
   <div class="header">
     <div class="header-top">
       <h1>Roadmap</h1>
-      <span class="phase-badge">WK 6</span>
+      <span class="phase-badge">WK 10</span>
     </div>
     <div class="header-sub">12-week phase plan</div>
   </div>
@@ -1039,8 +1064,8 @@ body{
 <script>
 const STATE = {
   weekType: 'free',
-  phase: 2,
-  week: 6,
+  phase: 3,
+  week: 10,
   lastLog: { sleep: 7.2, neck: 3, jaw: 'Medium', protein: true },
   jawSel: 'medium',
   protSel: 'yes',
@@ -1061,20 +1086,22 @@ const PHASES = [
   { weeks:'1–4', name:'Reset + Groove', status:'done',
     desc:'Calm system + perfect mechanics. RPE 7–8. Deload week 4.',
     unlocks:[] },
-  { weeks:'5–6', name:'Build', status:'now',
-    desc:'Add load without neck flare. Small jumps. Form stays crisp.',
+  { weeks:'5–9', name:'Build', status:'done',
+    desc:'Added load without neck flare. Spoto press re-entry. Paused deadlift. Body recomp started.',
+    unlocks:[] },
+  { weeks:'10–13', name:'Recomposition', status:'now',
+    desc:'Leaner + stronger + fitter. Conditioning non-negotiable. Load increases on all mains. Visible body recomp.',
     unlocks:[
-      {ok:true, text:'Add 2.5–5kg to main lifts when RPE ≤8 cleanly'},
-      {ok:true, text:'Barbell bench re-entry if neck GREEN: close-grip/Spoto 3×5'},
-      {ok:true, text:'Paused deadlift (2s off floor) replaces RDL'},
-      {ok:true, text:'1 interval session/week if sleep averaging 7h+'},
+      {ok:true, text:'5kg jumps on paused deadlift when RPE ≤8'},
+      {ok:true, text:'2.5kg jumps on squat and Spoto press'},
+      {ok:true, text:'Conditioning 2–3x/week — non-negotiable recomp lever'},
+      {ok:true, text:'Volume adds: +1 set on pull-ups, rows, hip thrust'},
+      {ok:true, text:'Left ankle strengthening formalised every session'},
       {ok:false, text:'Still no heavy overhead barbell'},
-      {ok:false, text:'No grinders. RPE cap stays 7–8'},
+      {ok:false, text:'No grinding past RPE 9 on any lift'},
     ]},
-  { weeks:'7–8', name:'Hybrid Build', status:'next',
-    desc:'More work capacity + muscle. Accessory volume stays.', unlocks:[] },
-  { weeks:'9–12', name:'Hybrid Strength', status:'next',
-    desc:'Heavier mains — still no grinders. Steady body recomp.', unlocks:[] },
+  { weeks:'14–17', name:'Strength Peak', status:'next',
+    desc:'Heavier mains, leaner body, peak conditioning capacity.', unlocks:[] },
 ];
 
 const WORKOUTS = {
@@ -1083,206 +1110,243 @@ const WORKOUTS = {
       title:'Lower Body',
       sub:'Squat + VMO + Posterior Chain',
       exercises:[
-        { name:'Rotation Reset Block', sets:'1 round', rpe:'—', rest:'—',
-          cue:'Left side-lying reach 5 breaths → Left split squat ISO 2×20–30s → Right serratus cable punch 3×10',
-          swap:'If rushed: 90/90 breathing ×5 + wall slides ×8', gate:false },
-        { name:'Front Squat / Low-Bar Back Squat', sets:'5×3–4 + 1 back-off ×6', rpe:'7–8', rest:'2–3 min',
-          cue:'Phase 2: add 2.5–5kg from Phase 1 top set. Ribs stacked; LEFT midfoot bias; stop before grind.',
-          swap:'Goblet squat or hack squat', gate:false },
-        { name:'Heel-Elevated Split Squat', sets:'3×8–10/side', rpe:'8', rest:'90s',
-          cue:'START LEFT; +1 set LEFT; slow ecc 3s; knee over toes; tripod foot',
-          swap:'Step-up knee over toe', gate:false },
-        { name:'Front-Foot Elevated Lunge (VMO)', sets:'3×10–12/side', rpe:'8', rest:'75s',
-          cue:'START LEFT. Front foot on step 2–5cm. Drive knee forward. Slow lower 3s. Feel VMO burn.',
-          swap:'Heel-elevated split squat', gate:false },
-        { name:'Barbell Hip Thrust', sets:'4×8', rpe:'8', rest:'90s',
-          cue:'Phase 2: 4×8. Chin tucked; glutes lock out; no rib flare',
-          swap:'Glute bridge machine', gate:false },
-        { name:'Tibialis Raises', sets:'3×15', rpe:'7', rest:'60s',
-          cue:'Anterior shin fires — controlled full range',
-          swap:'Ankle ABC circles', gate:false },
-        { name:'Suitcase Carry — LEFT first', sets:'4–5×20–30m', rpe:'Hard', rest:'60–90s',
-          cue:'Ribs stacked; shoulder heavy; slow nasal breathing; +1 set LEFT',
-          swap:'Bottom-up KB carry', gate:false },
+        { name:'Jaw Check + Breath Reset', sets:'1 exhale', rpe:'—', rest:'—',
+          cue:'Teeth apart. One long 8s exhale. Feel shoulders drop. Ask: am I braced or clear? If braced — two more exhales before moving on.',
+          swap:'Always first', gate:false },
+        { name:'Front Squat → Goblet Squat (Mechanical Drop)', sets:'3×6 front → 8 goblet', rpe:'8–9', rest:'90s',
+          cue:'Phase 3 NEW: 6 front squats at RPE 8 → rack immediately → pick up KB/DB → 8 goblet squats no rest. Left midfoot bias throughout. This is the new stimulus — metabolic and strength.',
+          swap:'Low-bar squat → goblet if neck reactive', gate:false },
+        { name:'Romanian Deadlift (slow eccentric)', sets:'4×10–12', rpe:'8', rest:'90s',
+          cue:'Phase 3: RDL returns as HYPERTROPHY movement. 3s eccentric — feel the hamstring load. Heavier than Phase 1 RDL. Ribs down. Long neck.',
+          swap:'Hip hinge machine 4×12', gate:false },
+        { name:'Bulgarian Split Squat → Leg Press (Mechanical Drop)', sets:'3×8/side → 12 leg press', rpe:'9', rest:'90s',
+          cue:'START LEFT. 8 Bulgarian RPE 8–9 → immediately leg press feet low × 12 reps. No rest between. Massive quad and glute stimulus.',
+          swap:'Heel-elevated split squat → goblet squat', gate:false },
+        { name:'Hip Thrust', sets:'4×10–12', rpe:'8', rest:'75s',
+          cue:'Higher reps than Phase 2. Squeeze hard at top for 1s count. Chin tucked hard. This builds glute shape that changes how clothes fit.',
+          swap:'Glute bridge machine 4×15', gate:false },
+        { name:'Left Ankle Calf Raise (single leg)', sets:'3×15 slow', rpe:'7', rest:'60s',
+          cue:'LEFT leg only. 3s lower. Full range. Tendon rebuilding — not optional, not rushing. Do this every session.',
+          swap:'Seated calf raise', gate:false },
+        { name:'Suitcase + Farmer Carry Superset', sets:'3 rounds: 20m suit + 20m farmer', rpe:'Hard', rest:'60s',
+          cue:'Suitcase LEFT first 20m → double farmer carry 20m. Posture under metabolic fatigue. Core recomp work. Ribs stacked throughout.',
+          swap:'Suitcase only × 30m', gate:false },
       ]
     },
     tue: {
       title:'Upper Push',
-      sub:'Chest + Shoulder + Bench Re-entry',
+      sub:'Chest + Back Supersets + Shoulders',
       exercises:[
-        { name:'90/90 Breathing + Chin Tucks', sets:'5 breaths + 5 tucks', rpe:'—', rest:'—',
-          cue:'Long exhale until ribs drop; chin tuck gentle 1–2cm lift',
-          swap:'Wall slides ×6 if tight', gate:false },
-        { name:'Close-Grip Bench / Spoto Press', sets:'3×5', rpe:'7', rest:'2 min',
-          cue:'GREEN gate only. Light load. Ribs down; small natural arch; exhale on press; reach at top. Neck tightens → back to DB immediately.',
-          swap:'Low incline DB neutral if not fully green', gate:true },
-        { name:'Tall-Kneeling Landmine Press', sets:'4×6', rpe:'7–8', rest:'90s',
-          cue:'Stays in programme — builds the pattern that makes bench safe. Exhale → reach; neck quiet.',
-          swap:'Low incline DB neutral 3×8', gate:false },
-        { name:'Low Incline DB Press (Neutral)', sets:'3×8', rpe:'8', rest:'90s',
-          cue:'Now volume complement to landmine. Exhale + reach; right shoulder soft.',
-          swap:'Push-ups weighted', gate:false },
-        { name:'Lateral Raise (myo)', sets:'3×15 + myo', rpe:'9', rest:'60s',
-          cue:'Stop at 80–90°; slight forward lean; traps quiet',
+        { name:'Jaw Check + Chin Tucks + Wall Slides', sets:'30s + 5 + 6', rpe:'—', rest:'—',
+          cue:'Jaw: teeth apart one exhale. Chin tucks: 5 gentle 1–2cm. Wall slides: 6 with reach. Shorter than Phase 2 — patterns internalised now.',
+          swap:'90/90 breathing if neck reactive', gate:false },
+        { name:'A1: Spoto Press (Close-Grip Bench)', sets:'4×6–8', rpe:'7–8', rest:'30–45s then A2',
+          cue:'SUPERSET A. Bar 2cm off chest. Exhale hard on press. Ribs DOWN. Phase 3: 6–8 reps — more volume. Right shoulder soft. Jaw check before each set.',
+          swap:'Low incline DB neutral press', gate:true },
+        { name:'A2: Chest-Supported Row', sets:'4×10–12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET A — immediately after Spoto. Pull elbow to hip. No shrug. Long neck. Antagonist superset means pressing muscles recover while pulling.',
+          swap:'Seated cable row', gate:false },
+        { name:'B1: Landmine Press', sets:'3×10', rpe:'8', rest:'30–45s then B2',
+          cue:'SUPERSET B. Higher reps than Phase 2. Exhale → reach. Neck quiet. Shoulder hypertrophy alongside Spoto.',
+          swap:'Low incline DB neutral', gate:false },
+        { name:'B2: Lat Pulldown / Pull-Up', sets:'3×10–12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET B — immediately after landmine. Drive elbows to hips. No neck craning. Add weight to pull-ups if bodyweight RPE ≤6.',
+          swap:'Assisted pull-up', gate:false },
+        { name:'Lateral Raise (myo-rep)', sets:'3×12 + 3 myo', rpe:'9', rest:'15–20s between myo',
+          cue:'True myo-rep: 12 reps near failure → rest 15s → 4 reps → rest 15s → 4 reps → rest 15s → 4 reps. Shoulder width accelerator.',
           swap:'Cable lateral raise', gate:false },
-        { name:'Rope Pressdowns (myo)', sets:'2×12 + myo', rpe:'9', rest:'60s',
-          cue:'Elbows pinned; ribs down; no shrug',
-          swap:'Cross-body extensions', gate:false },
-        { name:'Incline DB Curls (myo)', sets:'2×10 + myo', rpe:'9', rest:'60s',
-          cue:'Full range; elbows back; no swing',
+        { name:'Face Pull → External Rotation', sets:'3×15', rpe:'7', rest:'60s',
+          cue:'Elbows high. Rotate to stop. High reps. Rotator cuff health every session.',
+          swap:'Band pull-apart', gate:false },
+        { name:'Prone Y Raise', sets:'3×10–12 slow', rpe:'7–8', rest:'60s',
+          cue:'Lower traps only. 3s up 3s down. Protects neck-shoulder chain. Postural medicine.',
+          swap:'Trap-3 raise on incline bench', gate:false },
+        { name:'Tricep Pressdowns (myo-rep)', sets:'2×12 + 3 myo', rpe:'9', rest:'60s',
+          cue:'12 reps → 15s rest → 4 reps × 3. Elbows pinned. Ribs down.',
+          swap:'Cross-body extension', gate:false },
+        { name:'Incline DB Curls (myo-rep)', sets:'2×10 + 3 myo', rpe:'9', rest:'60s',
+          cue:'10 reps → 15s rest → 4 reps × 3. Elbows back. Full range. Slow eccentric.',
           swap:'Cable curl', gate:false },
       ]
     },
     wed: {
       title:'Active Recovery',
-      sub:'Buffer between upper and lower days',
+      sub:'Zone 2 wk1 → Threshold wk2 → Intervals wk3 → Mixed wk4',
       exercises:[
-        { name:'Zone 2 Bike / Walk', sets:'25–35 min', rpe:'Easy', rest:'—',
-          cue:'Easy nasal breathing. Full conversation possible. Jaw soft.', swap:'', gate:false },
-        { name:'Reverse Sled Drag', sets:'15–20 min', rpe:'Mod', rest:'—',
-          cue:'Moderate continuous. Upright. Ribs stacked. Great for VMO.', swap:'', gate:false },
-        { name:'Yoga / Mobility Flow', sets:'30–40 min', rpe:'Easy', rest:'—',
-          cue:'Your nightly yoga format works here. No aggressive stretching.', swap:'', gate:false },
+        { name:'Zone 2 Bike / Walk', sets:'35 min', rpe:'Easy', rest:'—',
+          cue:'Week 1 protocol: aerobic base building. Easy nasal breathing. Full conversation possible. Jaw soft. HR below 135bpm. Best fasted if morning.', swap:'', gate:false },
+        { name:'Threshold Run / Bike', sets:'30 min', rpe:'Comfortably hard', rest:'—',
+          cue:'Week 2 protocol: 10 min easy → 15 min at threshold (short sentences only, HR 140–155) → 5 min easy. First real threshold work.', swap:'', gate:false },
+        { name:'Intervals', sets:'22 min', rpe:'Hard', rest:'90s easy between',
+          cue:'Week 3 protocol: 5 min warm-up → 6×90s hard (HR 160+) with 90s easy walk → 5 min cool-down. Only if sleep >6.5h this week.', swap:'', gate:false },
+        { name:'Mixed Consolidation', sets:'30 min', rpe:'Moderate', rest:'2 min easy between',
+          cue:'Week 4 protocol: 10 min zone 2 → 4×2 min moderate-hard → 8 min zone 2. Easier than week 3. Show yourself this is sustainable.', swap:'', gate:false },
       ]
     },
     thu: {
       title:'Upper Pull',
-      sub:'Back + Bicep Dominant',
+      sub:'Back Thickness + Bicep Supersets',
       exercises:[
-        { name:'90/90 Breathing + Wall Slides', sets:'5 breaths + 6 slides', rpe:'—', rest:'—',
-          cue:'Rib reset first. Reach at top. No shrug.', swap:'Chin tucks ×5', gate:false },
-        { name:'Neutral Pull-Ups / Lat Pulldown', sets:'5×5 (or 4×8)', rpe:'8', rest:'90s',
-          cue:'Phase 2: add load if bodyweight RPE ≤7. Drive elbows; no neck craning.',
-          swap:'Assisted pull-up', gate:false },
-        { name:'Chest-Supported Row', sets:'4×8–10', rpe:'8', rest:'90s',
-          cue:'Phase 2: +1 set. Pull elbow to hip; no upper trap shrug; long neck',
+        { name:'Jaw Check + Wall Slides', sets:'30s + 6', rpe:'—', rest:'—',
+          cue:'Quick reset. Jaw: one exhale teeth apart. Wall slides 6 with reach. Serratus activates before pulling.',
+          swap:'Chin tucks × 5', gate:false },
+        { name:'A1: Weighted Pull-Up / Lat Pulldown', sets:'4×6–8', rpe:'8', rest:'30–45s then A2',
+          cue:'SUPERSET A. Phase 3: add weight to pull-ups if bodyweight RPE ≤6. Drive elbows to hips. No neck craning. 6–8 reps is strength-hypertrophy range.',
+          swap:'Assisted pull-up 4×10', gate:false },
+        { name:'A2: Incline DB Curl', sets:'4×10–12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET A — immediately after pull-ups. Elbows back. Full range. Biceps already fatigued from pulling — good.',
+          swap:'Cable curl', gate:false },
+        { name:'B1: Chest-Supported Row (heavy)', sets:'4×8–10', rpe:'9', rest:'30–45s then B2',
+          cue:'SUPERSET B. Heaviest row of the week. Pull elbow to hip. No shrug. Long neck. This is where back thickness is built.',
           swap:'Seated cable row', gate:false },
-        { name:'1-Arm Cable Row', sets:'3×10–12/side', rpe:'8', rest:'60–90s',
-          cue:'Right: shoulder away from ear. Left: smooth reach. Neck quiet.',
+        { name:'B2: Hammer Curl', sets:'4×12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET B — immediately after heavy row. Neutral grip. Controlled. Brachialis and forearm thickness.',
+          swap:'DB curl', gate:false },
+        { name:'1-Arm Cable Row', sets:'3×12/side', rpe:'8', rest:'60–75s',
+          cue:'RIGHT: shoulder away from ear. LEFT: smooth reach and pull. Unilateral volume. Control both sides equally.',
           swap:'DB row on bench', gate:false },
-        { name:'Face Pull → External Rotation', sets:'3×12–15', rpe:'7', rest:'60s',
-          cue:'Elbows high; rotate to stop; no forward head. Phase 2: more reps not load.',
+        { name:'Face Pull → External Rotation', sets:'3×15', rpe:'7', rest:'60s',
+          cue:'Elbows high. Rotate to stop. Rotator cuff health every session.',
           swap:'Band pull-apart', gate:false },
-        { name:'Incline DB Curls (myo)', sets:'2×10 + myo', rpe:'9', rest:'60s',
-          cue:'Full range; slow eccentric; elbows back', swap:'Hammer curl', gate:false },
-        { name:'Serratus Wall Slides', sets:'3×8–10', rpe:'7', rest:'45s',
-          cue:'Reach at top; forearms on wall; no shrug', swap:'Cable serratus punch', gate:false },
+        { name:'Serratus Wall Slides', sets:'3×10', rpe:'7', rest:'45s',
+          cue:'Reach at top. No shrug. Protects neck-shoulder chain. Non-negotiable.',
+          swap:'Cable serratus punch', gate:false },
       ]
     },
     fri: {
       title:'Lower Hinge',
-      sub:'Hinge + Single-Leg + Carry',
+      sub:'Deadlift + Posterior + Conditioning Finisher',
       exercises:[
-        { name:'Rotation Reset Block', sets:'1 round', rpe:'—', rest:'—',
-          cue:'Left side-lying reach 5 breaths → Left split squat ISO 2×20–30s → Right serratus cable punch 3×10',
-          swap:'If rushed: 90/90 breathing ×5', gate:false },
-        { name:'Paused Deadlift (2s off floor) or RDL', sets:'4×4–5', rpe:'7–8', rest:'2–3 min',
-          cue:'Phase 2 primary hinge. 2s pause off floor: reset lats, breath, then drive. Ribs down; even heel pressure; long neck.',
-          swap:'Hip hinge machine', gate:false },
-        { name:'Bulgarian Split Squat', sets:'3×8–10/side', rpe:'8', rest:'90s',
-          cue:'START LEFT; +1 set LEFT; slow ecc; pelvis level; tripod foot',
+        { name:'Jaw Check + Rotation Reset (short)', sets:'1 round', rpe:'—', rest:'—',
+          cue:'Jaw exhale → left side-lying reach 3 breaths → left split squat ISO 20s. Shorter than lower body day — get in, get ready.',
+          swap:'90/90 × 3 + tib raises if rushed', gate:false },
+        { name:'Paused Deadlift (2s off floor)', sets:'4×4–5', rpe:'7–8', rest:'2–3 min',
+          cue:'STRENGTH WORK — keep heavy and crisp. 2s pause off floor is your form check every rep. Lats on, ribs down, long neck, then drive. Add 5kg when last set RPE ≤8.',
+          swap:'Hip hinge machine or rack pull if form breaks', gate:false },
+        { name:'Romanian Deadlift (HYPERTROPHY)', sets:'3×12–15 slow', rpe:'8', rest:'90s',
+          cue:'After paused DL: RDL for hypertrophy reps. 3s eccentric. Stretch hamstrings. Light-moderate load. Different stimulus to heavy work above.',
+          swap:'Leg curl machine 3×15', gate:false },
+        { name:'Bulgarian Split Squat', sets:'3×10/side', rpe:'8', rest:'90s',
+          cue:'START LEFT. Higher reps than Phase 2. Slow eccentric. Heavier than you think — this is hypertrophy work now.',
           swap:'Leg press feet low', gate:false },
-        { name:'Ham Curl (myo)', sets:'2×12 + myo', rpe:'9', rest:'60s',
-          cue:'Full range; slow eccentric; hips flat on pad', swap:'Nordic assisted', gate:false },
-        { name:'Reverse Sled Drag', sets:'6×20–30m', rpe:'Hard', rest:'Walk back',
-          cue:'Knees forward; upright; constant tension; ribs stacked',
-          swap:'Backward walk weighted vest', gate:false },
-        { name:'Suitcase Carry — LEFT first', sets:'4×20–30m', rpe:'Hard', rest:'60–90s',
-          cue:'Ribs stacked; neck long; shoulder heavy; nasal breathing; +1 set LEFT',
-          swap:'Bottom-up KB carry', gate:false },
+        { name:'Ham Curl (myo-rep)', sets:'3×12 + 3 myo', rpe:'9', rest:'60s',
+          cue:'12 reps → 15s rest → 4 reps × 3. Full range. Hips flat. Slow eccentric.',
+          swap:'Nordic hamstring assisted', gate:false },
+        { name:'Left Ankle Calf Raise', sets:'3×15 slow', rpe:'7', rest:'60s',
+          cue:'LEFT only. 3s lower. Tendon rebuilding. Every session.',
+          swap:'Seated calf raise', gate:false },
+        { name:'CONDITIONING FINISHER: Sled + Carry Circuit', sets:'4 rounds', rpe:'Hard', rest:'Walk back',
+          cue:'20m reverse sled → immediately 20m suitcase carry LEFT → 20m suitcase carry RIGHT → walk 30m recovery. 4 rounds. Replaces a separate conditioning session.',
+          swap:'4×25m suitcase carry only if no sled', gate:false },
       ]
     }
   },
   kid: {
     mon: {
-      title:'Lower Body',
-      sub:'Squat + Push/Pull + VMO + Arms',
+      title:'Lower Body + Push',
+      sub:'Squat + Push Superset + Posterior',
       exercises:[
-        { name:'Rotation Reset Block', sets:'1 round', rpe:'—', rest:'—',
-          cue:'Left side-lying reach 5 breaths → Left split squat ISO 2×20–30s → Right serratus cable punch 3×10',
-          swap:'If rushed: 90/90 breathing ×5 + wall slides ×8', gate:false },
-        { name:'Front Squat / Low-Bar Back Squat', sets:'5×3–4', rpe:'7–8', rest:'2–3 min',
-          cue:'Phase 2: add 2.5–5kg. If front squat → neck pressure: swap to low-bar back squat. Ribs stacked; LEFT midfoot bias.',
-          swap:'Goblet squat heavy if neck cranky', gate:false },
-        { name:'Close-Grip Bench / Spoto Press', sets:'3×5', rpe:'7', rest:'2 min',
-          cue:'GREEN gate only. Light — technique work, not strength test. Ribs down; exhale on press; reach at top.',
-          swap:'Low incline DB neutral 3×8 if not green', gate:true },
-        { name:'Chest-Supported Row', sets:'4×8–10', rpe:'8', rest:'90s',
-          cue:'Phase 2: +1 set. Long neck; pull elbow to hip; no shrug.',
+        { name:'Jaw Check + Rotation Reset', sets:'1 round', rpe:'—', rest:'—',
+          cue:'One exhale jaw open. Left side-lying reach 3 breaths. Left split squat ISO 20s. 3 minutes max.',
+          swap:'90/90 breathing × 3 if really rushed', gate:false },
+        { name:'Front Squat → Goblet (Mechanical Drop)', sets:'3×6 → 8', rpe:'8–9', rest:'90s',
+          cue:'6 front squats RPE 8 → rack immediately → 8 goblet squats no rest. Left midfoot bias. Phase 3 method.',
+          swap:'Low-bar squat → goblet', gate:false },
+        { name:'A1: Spoto Press', sets:'3×8', rpe:'8', rest:'30–45s then A2',
+          cue:'SUPERSET A. Bar 2cm off chest. Exhale press. Ribs down. Jaw check before each set.',
+          swap:'Low incline DB neutral', gate:true },
+        { name:'A2: Chest-Supported Row', sets:'3×10–12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET A — immediately after Spoto. Pull elbow to hip. No shrug. Long neck.',
           swap:'Seated cable row', gate:false },
-        { name:'Heel-Elevated Split Squat', sets:'3×8–10/side', rpe:'8', rest:'90s',
-          cue:'START LEFT; slow ecc 3s; knee over toes; tripod foot',
-          swap:'Step-up knee over toe', gate:false },
-        { name:'Incline DB Curls (myo)', sets:'2×10 + myo', rpe:'9', rest:'60s',
-          cue:'Full range; elbows stay back', swap:'Cable curl', gate:false },
-        { name:'Rope Pressdowns (myo)', sets:'2×12 + myo', rpe:'9', rest:'60s',
-          cue:'Elbows pinned; no shrug; ribs down', swap:'Cross-body extensions', gate:false },
+        { name:'Hip Thrust', sets:'3×12', rpe:'8', rest:'75s',
+          cue:'Higher reps. 1s squeeze at top. Chin tucked. Glute shape work.',
+          swap:'Glute bridge', gate:false },
+        { name:'Bulgarian Split Squat', sets:'3×10/side', rpe:'8', rest:'90s',
+          cue:'START LEFT. Slow eccentric. Heavier than Phase 2. Hypertrophy work.',
+          swap:'Leg press', gate:false },
+        { name:'Left Ankle Calf Raise', sets:'3×15 slow', rpe:'7', rest:'60s',
+          cue:'LEFT only. 3s lower. Every session.',
+          swap:'Seated calf raise', gate:false },
+        { name:'Conditioning Finisher', sets:'3 rounds', rpe:'Hard', rest:'60s',
+          cue:'20m reverse sled → 20m suitcase carry LEFT → 20m suitcase carry RIGHT. 3 rounds. Done.',
+          swap:'3×25m suitcase carry only', gate:false },
       ]
     },
     wed: {
-      title:'Lower Hinge',
-      sub:'Hinge + Pull + Posterior + Carry',
+      title:'Lower Hinge + Pull',
+      sub:'Deadlift + Pull Superset + Posterior',
       exercises:[
-        { name:'Rotation Reset Block', sets:'1 round', rpe:'—', rest:'—',
-          cue:'Left side-lying reach 5 breaths → Left split squat ISO 2×20–30s → Right serratus cable punch 3×10',
-          swap:'If rushed: 90/90 breathing ×5', gate:false },
-        { name:'Paused Deadlift (2s) or RDL', sets:'4×4–5', rpe:'7–8', rest:'2–3 min',
-          cue:'Phase 2: transition to paused DL. 2s pause just off floor — reset position, lats on, then drive.',
-          swap:'Hip hinge machine / rack pull', gate:false },
-        { name:'Neutral Pull-Ups / Lat Pulldown', sets:'5×5 (or 4×8)', rpe:'8', rest:'90s',
-          cue:'Drive elbows to hips; no neck craning; shoulders heavy at top',
+        { name:'Jaw Check + Wall Slides', sets:'30s + 6', rpe:'—', rest:'—',
+          cue:'Quick. Jaw exhale. Wall slides 6 with reach. Go.',
+          swap:'Chin tucks × 5', gate:false },
+        { name:'Paused Deadlift (2s)', sets:'4×4–5', rpe:'7–8', rest:'2–3 min',
+          cue:'Heavy and crisp. 2s pause off floor = form check. Ribs down. Long neck. Add 5kg when RPE ≤8.',
+          swap:'RDL or hip hinge machine', gate:false },
+        { name:'A1: Pull-Up / Lat Pulldown', sets:'3×8–10', rpe:'8', rest:'30–45s',
+          cue:'SUPERSET A. Drive elbows to hips. No neck craning. Add weight if bodyweight RPE ≤6.',
           swap:'Assisted pull-up', gate:false },
-        { name:'Barbell Hip Thrust', sets:'4×8', rpe:'8', rest:'90s',
-          cue:'Phase 2: 4×8. Chin tucked; glutes lock out; no rib flare',
-          swap:'Glute bridge machine', gate:false },
-        { name:'Peterson Step-Downs', sets:'3×12/side', rpe:'8', rest:'60–90s',
-          cue:'START LEFT; slow lower; knee tracks; pelvis level; tripod foot',
-          swap:'Reverse sled drag', gate:false },
-        { name:'Ham Curl (myo)', sets:'2×12 + myo', rpe:'9', rest:'60s',
-          cue:'Full range; slow eccentric; hips flat', swap:'Nordic assisted', gate:false },
-        { name:'Suitcase Carry — LEFT first', sets:'4–6×20–30m', rpe:'Hard', rest:'60–90s',
-          cue:'Ribs stacked; neck long; shoulder heavy; slow nasal breathing; +1 set LEFT',
-          swap:'Bottom-up KB carry', gate:false },
+        { name:'A2: RDL (slow eccentric)', sets:'3×12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET A — after pull-ups. 3s lower. Hamstring hypertrophy. Different to paused DL above.',
+          swap:'Leg curl machine', gate:false },
+        { name:'B1: Chest-Supported Row (heavy)', sets:'3×8–10', rpe:'9', rest:'30–45s',
+          cue:'SUPERSET B. Heaviest row of week. Pull elbow to hip. No shrug.',
+          swap:'1-arm cable row', gate:false },
+        { name:'B2: Ham Curl (myo-rep)', sets:'3×10 + 3 myo', rpe:'9', rest:'90s after pair',
+          cue:'SUPERSET B — 10 reps → 15s → 4 reps × 3. Pairs with heavy row.',
+          swap:'Nordic assisted', gate:false },
+        { name:'Left Ankle Calf Raise', sets:'3×15', rpe:'7', rest:'60s',
+          cue:'LEFT only. 3s lower. Non-negotiable.',
+          swap:'Seated calf raise', gate:false },
       ]
     },
     fri: {
-      title:'Upper Strength',
-      sub:'Upper Strength + Single-Leg + Delts',
+      title:'Upper Push/Pull',
+      sub:'Full Upper Superset Session',
       exercises:[
-        { name:'Low Incline DB Press (Neutral) → Spoto option', sets:'4×6–8', rpe:'7–8', rest:'2 min',
-          cue:'Phase 2: if neck GREEN 4+ weeks → option to try Spoto. Otherwise stay DB. Exhale + reach; right shoulder soft.',
-          swap:'Push-ups weighted', gate:false },
-        { name:'1-Arm Cable Row', sets:'4×10/side', rpe:'8', rest:'90s',
-          cue:'Right: shoulder away from ear. Left: smooth reach. Neck quiet.',
-          swap:'Chest-supported row', gate:false },
-        { name:'Bulgarian Split Squat', sets:'3×8–10/side', rpe:'8', rest:'90s',
-          cue:'START LEFT; slow ecc; pelvis level; tripod foot. Phase 2: add load if Phase 1 felt easy.',
-          swap:'Leg press feet low', gate:false },
-        { name:'Lateral Raise (myo)', sets:'3×15 + myo', rpe:'9', rest:'60s',
-          cue:'Stop at 80–90°; slight lean; no trap takeover', swap:'Cable lateral raise', gate:false },
-        { name:'Prone Y Raise', sets:'3×10', rpe:'7–8', rest:'60s',
-          cue:'Lower traps only; no shrug; slow and controlled',
-          swap:'Trap-3 raise on incline bench', gate:false },
-        { name:'Cable Triceps Extension (myo)', sets:'2×12 + myo', rpe:'9', rest:'60s',
-          cue:'Ribs down; no shrug; elbows pinned', swap:'Pressdowns', gate:false },
+        { name:'Jaw Check + Chin Tucks', sets:'30s + 5', rpe:'—', rest:'—',
+          cue:'Jaw: one exhale teeth apart. Chin tucks: 5 gentle. Done.',
+          swap:'Wall slides × 6', gate:false },
+        { name:'A1: Spoto Press', sets:'4×6–8', rpe:'8', rest:'30–45s',
+          cue:'SUPERSET A. Phase 3 volume. Bar 2cm off chest. Ribs down. Jaw check before each set.',
+          swap:'Low incline DB neutral', gate:true },
+        { name:'A2: Chest-Supported Row', sets:'4×10', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET A — pull elbow to hip. No shrug. Immediately after Spoto.',
+          swap:'Seated cable row', gate:false },
+        { name:'B1: Landmine Press', sets:'3×10–12', rpe:'8', rest:'30–45s',
+          cue:'SUPERSET B. Higher reps. Exhale → reach. Neck quiet.',
+          swap:'DB shoulder press seated', gate:false },
+        { name:'B2: Pull-Up / Lat Pulldown', sets:'3×10–12', rpe:'8', rest:'90s after pair',
+          cue:'SUPERSET B — drive elbows. No craning. After landmine.',
+          swap:'Assisted pull-up', gate:false },
+        { name:'Lateral Raise + Face Pull Superset', sets:'3×12 + 3×15', rpe:'9+7', rest:'60s',
+          cue:'Lateral raise → immediately face pull. Shoulder width + rotator cuff health.',
+          swap:'Cables for both', gate:false },
+        { name:'Prone Y Raise', sets:'3×12', rpe:'7', rest:'60s',
+          cue:'Lower traps. Slow. Protects neck chain.',
+          swap:'Trap-3 raise', gate:false },
+        { name:'Conditioning: Intervals', sets:'15–18 min', rpe:'7/10', rest:'90s easy',
+          cue:'5 min easy → 5×90s hard / 90s easy → 3 min cool-down. Bike or rower preferred.',
+          swap:'Reverse sled drag 15 min', gate:false },
       ]
     }
   }
 };
 
 
+
+
 const CONDITIONING = {
   options: [
-    { id:'zone2', name:'Zone 2 — Bike / Walk', duration:'25–35 min', intensity:'Easy',
-      cue:'Easy nasal breathing. Full conversation possible. Jaw soft. Best on kid weeks — improves recovery + leanness without joint stress.', tag:'Recovery' },
-    { id:'sled', name:'Sled Intervals', duration:'10 rounds', intensity:'Hard',
-      cue:'20m heavy push + walk-back recovery. Shoulders down — no shrugging. Athletic engine + legs.', tag:'Strength' },
-    { id:'reverse_sled', name:'Reverse Sled Drag', duration:'12–20 min', intensity:'Moderate',
-      cue:'VMO + knee friendly. Great if ankle sensitive. Torso tall; ribs stacked. Constant tension.', tag:'VMO' },
-    { id:'bike_intervals', name:'Bike Intervals', duration:'15–18 min', intensity:'7/10',
-      cue:'2 min easy → 6–8 rounds: 1 min @7/10 + 1 min easy → 2–3 min cool-down. Long exhale, jaw soft.', tag:'Cardio' },
-    { id:'carry_march', name:'Carry + March Flow', duration:'10–12 min', intensity:'Moderate',
-      cue:'20m suitcase carry (LEFT) → 30s fast march → 20m RIGHT → 30s march. Jaw soft + stacked ribs.', tag:'Carry' },
+    { id:'zone2', name:'Zone 2 — Bike / Walk', duration:'30–40 min', intensity:'Easy',
+      cue:'Easy nasal breathing throughout. Full conversation possible. Jaw soft. HR below 135bpm. Best fasted if morning. Fat oxidation work.', tag:'Recovery' },
+    { id:'sled', name:'Sled Intervals', duration:'15–20 min', intensity:'Hard',
+      cue:'10–12 rounds: 20m heavy drag + walk-back recovery. Upright. Ribs stacked. Knees forward. Constant tension. VMO and posterior chain.', tag:'Strength' },
+    { id:'reverse_sled', name:'Reverse Sled Drag', duration:'15–20 min', intensity:'Moderate',
+      cue:'Upright. Knees forward. Constant tension. Great VMO and posterior chain with zero spinal load. Good on lower body recovery days.', tag:'VMO' },
+    { id:'bike_intervals', name:'Bike Intervals', duration:'22 min', intensity:'7/10',
+      cue:'5 min warm-up → 6×90s hard (HR 160+) with 90s easy → 5 min cool-down. Only do this if sleep >6.5h this week.', tag:'Cardio' },
+    { id:'carry_circuit', name:'Carry + Sled Circuit', duration:'12–15 min', intensity:'Hard',
+      cue:'20m suitcase carry LEFT → 20m suitcase carry RIGHT → 20m reverse sled → walk 30m recovery. 4 rounds. Core recomp work.', tag:'Carry' },
   ],
   kidWeekTarget: 2,
   freeWeekTarget: 3,
@@ -1295,27 +1359,27 @@ const WEEK_PLANS = {
     subtitle: 'Kids time — 3 sessions around the chaos',
     desc: '3 lifting sessions — Mon/Tue free + Fri post drop-off',
     sessions: [
-      { day:'Mon', type:'lifting', label:'Day A', sub:'Squat + Push/Pull + VMO', key:'mon' },
+      { day:'Mon', type:'lifting', label:'Lower Body + Push', sub:'Squat + Push Superset + Posterior', key:'mon' },
       { day:'Tue', type:'conditioning', label:'Conditioning', sub:'Zone 2 or Sled' },
       { day:'Wed', type:'rest', label:'Kids arrive eve', sub:'Easy walk or yoga only' },
       { day:'Thu', type:'rest', label:'Kids day', sub:'Family movement — active with kids' },
-      { day:'Fri', type:'lifting', label:'Day B — post drop-off', sub:'Hinge + Pull + Posterior', key:'wed' },
-      { day:'Sat', type:'lifting', label:'Day C', sub:'Upper Strength + Delts', key:'fri' },
+      { day:'Fri', type:'lifting', label:'Lower Hinge + Pull', sub:'Deadlift + Pull Superset', key:'wed' },
+      { day:'Sat', type:'lifting', label:'Upper Push/Pull', sub:'Full Upper Superset Session', key:'fri' },
       { day:'Sun', type:'conditioning', label:'Conditioning', sub:'Zone 2 / Walk / Yoga' },
     ]
   },
   free: {
     label: 'Big Week',
     subtitle: 'Limited kids — big training week, Mon to Fri',
-    desc: '5 lifting sessions Mon–Fri before kids arrive Wed night',
+    desc: '5 sessions Mon–Fri before kids arrive Wed night',
     sessions: [
-      { day:'Mon', type:'lifting', label:'Lower Day', sub:'Squat + VMO + Posterior', key:'mon' },
-      { day:'Tue', type:'lifting', label:'Upper Push', sub:'Chest + Shoulder + Bench', key:'tue' },
-      { day:'Wed', type:'conditioning', label:'Active Recovery AM', sub:'Zone 2 / Yoga — kids arrive tonight' },
-      { day:'Thu', type:'rest', label:'Kids — active', sub:'Family hike / park / movement' },
-      { day:'Fri', type:'lifting', label:'Lower Hinge', sub:'Deadlift + Single-leg', key:'fri' },
-      { day:'Sat', type:'rest', label:'Kids day', sub:'Family activity — stay active' },
-      { day:'Sun', type:'conditioning', label:'Optional conditioning', sub:'Short conditioning — wrap up before pickup' },
+      { day:'Mon', type:'lifting', label:'Lower Body', sub:'Squat + VMO + Posterior', key:'mon' },
+      { day:'Tue', type:'lifting', label:'Upper Push', sub:'Chest + Back Supersets', key:'tue' },
+      { day:'Wed', type:'conditioning', label:'Active Recovery', sub:'Structured conditioning — see weekly protocol' },
+      { day:'Thu', type:'lifting', label:'Upper Pull', sub:'Back Thickness + Bicep', key:'thu' },
+      { day:'Fri', type:'lifting', label:'Lower Hinge', sub:'Deadlift + Posterior + Finisher', key:'fri' },
+      { day:'Sat', type:'conditioning', label:'Optional Conditioning', sub:'Sled / Intervals / Carry' },
+      { day:'Sun', type:'rest', label:'Rest', sub:'Recovery before pickup' },
     ]
   },
   mixed: {
@@ -1323,16 +1387,16 @@ const WEEK_PLANS = {
     subtitle: 'All sessions available — hit 3, take the rest as they come',
     desc: 'Full workout menu — do what the week allows, target 3 sessions',
     sessions: [
-      { day:'Mon', type:'lifting', label:'Lower Body', sub:'Squat + VMO + Posterior', key:'mon' },
-      { day:'Tue', type:'lifting', label:'Upper Push', sub:'Chest + Shoulder + Bench', key:'tue' },
+      { day:'Mon', type:'lifting', label:'Lower Body + Push', sub:'Squat + Push Superset', key:'mon' },
+      { day:'Tue', type:'lifting', label:'Upper Push', sub:'Chest + Back Supersets', key:'tue' },
       { day:'Wed', type:'conditioning', label:'Active Recovery', sub:'Zone 2 / Yoga / Walk' },
       { day:'Thu', type:'lifting', label:'Upper Pull', sub:'Back + Bicep', key:'thu' },
       { day:'Fri', type:'lifting', label:'Lower Hinge', sub:'Deadlift + Single-leg', key:'fri' },
       { day:'Sat', type:'flex', label:'Bonus Session', sub:'If energy and time allow' },
       { day:'Sun', type:'conditioning', label:'Conditioning', sub:'Zone 2 or carry flow' },
     ]
-  }};
-
+  }
+};
 
 function renderWeeklyPlan() {
   const container = document.getElementById('weekly-plan-view');
@@ -1340,21 +1404,22 @@ function renderWeeklyPlan() {
   if (typeof WEEK_PLANS === 'undefined') return;
   const plan = WEEK_PLANS[STATE.weekType] || WEEK_PLANS.free;
   const todayDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][STATE.currentDay];
-  
-  const typeColors = {lifting:'day-dot-lift', conditioning:'day-dot-cond', rest:'day-dot-rest', flex:'day-dot-flex'};
-  
+  const typeColors = {
+    lifting:'day-dot-lift',
+    conditioning:'day-dot-cond',
+    rest:'day-dot-rest',
+    flex:'day-dot-flex'
+  };
   const rows = plan.sessions.map((s, i) => {
     const isToday = s.day === todayDay;
     const dotClass = typeColors[s.type] || 'day-dot-rest';
     const todayTag = isToday ? '<span class="day-today-tag">TODAY</span>' : '';
-    
     let action = '';
     if (s.type === 'lifting' && isToday) {
       action = `<span class="day-action" onclick="openWarmup()">Start →</span>`;
     } else if (s.type === 'conditioning') {
       action = `<span class="day-action" onclick="showCondModal(${i})">Options</span>`;
     }
-    
     return `<div class="day-row">
       <span class="day-label">${s.day}</span>
       <div class="day-dot ${dotClass}${isToday ? ' day-dot-today' : ''}"></div>
@@ -1365,15 +1430,12 @@ function renderWeeklyPlan() {
       ${action}
     </div>`;
   }).join('');
-  
-  // Add conditioning summary
-  const condTarget = STATE.weekType === 'free' ? CONDITIONING.freeWeekTarget : CONDITIONING.kidWeekTarget;
+  const condTarget = STATE.weekType === 'free' ? 3 : STATE.weekType === 'mixed' ? 2 : 2;
   const condDone = STATE.condDone || 0;
   const condSummary = `<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
     <span style="font-size:11px;color:var(--text3)">Conditioning this week</span>
     <span style="font-size:12px;font-weight:600;font-family:var(--mono);color:${condDone >= condTarget ? 'var(--green)' : 'var(--yellow)'}">${condDone}/${condTarget}</span>
   </div>`;
-  
   container.innerHTML = `<div class="card-sm" style="margin:0">${rows}${condSummary}</div>`;
 }
 
@@ -1381,24 +1443,25 @@ function showCondModal(dayIndex) {
   const plan = WEEK_PLANS[STATE.weekType];
   const day = plan?.sessions[dayIndex];
   if (!day) return;
-  
   const modal = document.getElementById('modal-cond');
+  if (!modal) return;
   document.getElementById('cond-modal-title').textContent = `${day.day} — ${day.label}`;
-  
   const optContainer = document.getElementById('cond-options-list');
-  optContainer.innerHTML = CONDITIONING.options.map((opt, i) => `
-    <div class="cond-pill" onclick="selectCond(${i})">
-      <div class="cond-pill-tag">${opt.tag} · ${opt.intensity}</div>
-      <div class="cond-pill-name">${opt.name}</div>
-      <div class="cond-pill-meta">${opt.duration}</div>
-    </div>
-  `).join('');
-  
+  if (optContainer && typeof CONDITIONING !== 'undefined') {
+    optContainer.innerHTML = CONDITIONING.options.map((opt, i) => `
+      <div class="cond-pill" onclick="selectCond(${i})">
+        <div class="cond-pill-tag">${opt.tag} · ${opt.intensity}</div>
+        <div class="cond-pill-name">${opt.name}</div>
+        <div class="cond-pill-meta">${opt.duration}</div>
+      </div>
+    `).join('');
+  }
   document.getElementById('cond-detail-area').innerHTML = `<div style="font-size:12px;color:var(--text3);font-style:italic">Tap an option to see cues</div>`;
   modal.classList.add('open');
 }
 
 function selectCond(idx) {
+  if (typeof CONDITIONING === 'undefined') return;
   const opt = CONDITIONING.options[idx];
   if (!opt) return;
   document.getElementById('cond-detail-area').innerHTML = `
@@ -1406,7 +1469,6 @@ function selectCond(idx) {
     <div style="font-size:11px;color:var(--text3);margin-bottom:12px">${CONDITIONING.rule}</div>
     <button class="btn btn-primary" onclick="markCondDone()">Log as Done ✓</button>
   `;
-  // Highlight selected pill
   document.querySelectorAll('.cond-pill').forEach((p,i) => {
     p.style.borderColor = i === idx ? 'var(--accent)' : '';
     p.style.background = i === idx ? 'rgba(45,212,191,.08)' : '';
@@ -1417,37 +1479,6 @@ function markCondDone() {
   STATE.condDone = (STATE.condDone || 0) + 1;
   closeModal('modal-cond');
   renderWeeklyPlan();
-}
-
-
-function partialSession() {
-  STATE.sessionsThisWeek = (STATE.sessionsThisWeek || 0) + 0.5;
-  STATE.lastSessionStatus = 'partial';
-  if (STATE.selectedWorkoutKey) STATE.sessionLogs[STATE.selectedWorkoutKey] = 'partial';
-  renderWorkoutSelector(STATE.selectedWorkoutKey);
-  showScreen('home');
-  // Show brief confirmation
-  setTimeout(() => {
-    const banner = document.createElement('div');
-    banner.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(245,158,11,.15);border:1px solid var(--yellow);color:var(--yellow);padding:10px 20px;border-radius:10px;font-size:13px;z-index:400;';
-    banner.textContent = 'Partial session logged. Something is better than nothing.';
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 3000);
-  }, 300);
-}
-
-function skipSession() {
-  STATE.lastSessionStatus = 'skipped';
-  if (STATE.selectedWorkoutKey) STATE.sessionLogs[STATE.selectedWorkoutKey] = 'skipped';
-  renderWorkoutSelector(STATE.selectedWorkoutKey);
-  showScreen('home');
-  setTimeout(() => {
-    const banner = document.createElement('div');
-    banner.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);background:rgba(143,163,184,.1);border:1px solid var(--border);color:var(--text2);padding:10px 20px;border-radius:10px;font-size:13px;z-index:400;white-space:nowrap;';
-    banner.textContent = 'Session skipped. No makeup volume — resume normal next time.';
-    document.body.appendChild(banner);
-    setTimeout(() => banner.remove(), 3500);
-  }, 300);
 }
 
 const DELOAD_TRIGGERS = [
@@ -1471,7 +1502,7 @@ const SYSTEM_PROMPT = `You are Adrian's personal strength and health coach. You 
 
 KEY CONTEXT:
 - Adrian, 38, NZ-based father. 168cm, ~80kg, ~15% BF. Goal: sub-10% BF, lean muscle, athletic.
-- Currently Week 6, Phase 2 (Build phase) of a 12-week programme.
+- Currently Week 10+, Phase 3 (Recomposition) — leaner, stronger, fitter. 4-week recomp block.
 - Parenting schedule: alternating kid weeks and free weeks.
 - Kid week: 3-day lifting (Mon/Wed/Fri). Free week: 5-day split (Mon-Fri).
 
@@ -1481,12 +1512,15 @@ PHYSICAL PATTERNS:
 - Responds well to: breathing mechanics, rib stacking, left-side bias, corrective strength.
 - Runs wired/braced under stress. Stress shows as tension, neck tightness, poor sleep, bloating.
 
-PHASE 2 RULES (current):
-- Add 2.5–5kg to main lifts when last set RPE ≤8 cleanly.
-- Barbell bench re-entry: close-grip/Spoto 3×5 light — GREEN gate only (neck quiet 4+ consecutive weeks).
-- Paused deadlift (2s off floor) replaces RDL as primary hinge.
-- Add 1 interval conditioning/week if sleep averaging 7h+.
-- STILL OFF: heavy overhead barbell, grinding reps, RPE above 8 on mains.
+PHASE 3 RULES (current — Recomposition block):
+- Add 2.5kg to squat and Spoto press when last set RPE ≤8 cleanly.
+- Add 5kg to paused deadlift when last set RPE ≤8 cleanly.
+- Spoto press: bar 2cm off chest — never touch chest if ribs flare. Reduce load immediately if they do.
+- Conditioning 2 sessions minimum kid weeks, 3 on big weeks — non-negotiable recomp lever.
+- Protein anchor: 40g+ at first meal every day. Protein before evening snacks.
+- Left ankle single-leg calf raise added as dedicated exercise every session.
+- STILL OFF: heavy overhead barbell, grinding past RPE 9.
+- RED FLAG: right base of skull 5+/10 → remove pressing. Rows/carries/sled only.
 
 PAIN RULES:
 - Green 0-2/10: train as written.
@@ -1507,128 +1541,119 @@ COMMUNICATION STYLE:
 // ── WARM-UP DATA ──────────────────────────────────────────
 
 const WARMUP_BASE = [
-  {
-    id:'breathing',
-    name:'90/90 Breathing',
-    duration:40,
-    reps:'5 breaths',
-    type:'Reset',
-    cue:'Lie on your back, knees bent at 90°. <strong>Long exhale through mouth 6–8s</strong> — feel your ribs drop. Inhale through nose. Each exhale: more rib drop, jaw softer, shoulders heavier. This is not stretching. This is resetting your starting position.',
-    trackable:true
-  },
-  {
-    id:'reach',
-    name:'Left Side-Lying Reach',
-    duration:30,
-    reps:'5 breaths',
-    type:'Reset',
-    cue:'Lie on left side, right side up. Reach your right arm long across your body. <strong>Exhale fully — feel the right rib decompress.</strong> This directly addresses your right-dominant rotation pattern. 5 slow breaths here before moving.',
-    trackable:true
-  },
-  {
-    id:'splitsquat',
-    name:'Left Split Squat ISO',
-    duration:45,
-    reps:'2 × 20s',
-    type:'Activate',
-    cue:'Half-kneeling, left foot forward. <strong>Squeeze your left glute lightly.</strong> Ribs down. Long exhale. Tripod foot (big toe, little toe, heel). This builds trust in your left ankle and wakes up the glute that prevents your right-dominant shift. 20–30s each side.',
-    trackable:true
-  },
-  {
-    id:'tib',
-    name:'Tibialis Raises',
-    duration:25,
-    reps:'15 reps',
-    type:'Activate',
-    cue:'Stand with heels on a step or against a wall. <strong>Lift toes up slowly — feel the anterior shin fire.</strong> Controlled full range. This primes the anterior shin and supports your left ankle. Often skipped. Do not skip it.',
-    trackable:true
-  },
-  {
-    id:'wallslides',
-    name:'Serratus Wall Slides',
-    duration:30,
-    reps:'8 reps',
-    type:'Scap',
-    cue:'Forearms on wall, elbows at 90°. Press forearms gently into wall. Slide arms up. At top: <strong>reach slightly forward — no shrug.</strong> Feel the side ribs engage. If traps fire instead, drop the load and slow down. This replaces your trap-dominant pressing pattern.',
-    trackable:true
-  },
-  {
-    id:'deadbug',
-    name:'Dead Bug',
-    duration:40,
-    reps:'6/side',
-    type:'Integrate',
-    cue:'On back, arms vertical, knees at 90°. <strong>Exhale fully before each rep.</strong> Extend opposite arm and leg slowly — ribs stay down. No low back arch. This connects your breathing to your core without bracing hard. If neck pulls, you are losing rib position.',
-    trackable:true
-  },
-  {
-    id:'scappushup',
-    name:'Scap Push-Ups',
-    duration:25,
-    reps:'10 reps',
-    type:'Integrate',
-    cue:'Plank position. Without bending elbows, let chest sink toward floor (protract scap), then push floor away (retract). <strong>Controlled — feel the shoulder blades move.</strong> No shrugging. This trains serratus and lower traps — the muscles that make pressing safe.',
-    trackable:true
-  },
-  {
-    id:'sled',
-    name:'Backward Sled / Fast March',
-    duration:75,
-    reps:'60–90s',
-    type:'Prime',
-    cue:'Upright torso. Ribs stacked. Push sled backward or march fast on spot. <strong>HR up — not a sprint.</strong> Knees drive forward. Shoulders soft. Jaw loose. This is your final HR primer before ramp sets. You should feel warm but not winded.',
-    trackable:true
-  },
-  {
-    id:'ramp',
-    name:'Progressive Ramp Sets',
-    duration:0,
-    reps:'2–3 sets',
-    type:'Ramp',
-    cue:'Take your first exercise and do 2–3 sets building toward your working weight. <strong>Bar speed should stay crisp — no grinding.</strong> Stop if form breaks. These are not working sets. They are nervous system prep. RPE should reach about 6 on the final ramp.',
-    trackable:false
-  },
+  { id:'jaw', name:'Jaw Check + Breath Reset', duration:30, reps:'1 exhale', type:'Reset',
+    cue:'<strong>Teeth apart.</strong> One long 8-second exhale. Feel shoulders drop. Ask yourself: am I braced or am I clear? If braced — two more exhales before moving on. This is your session barometer.',
+    trackable:true },
+  { id:'foam_it', name:'Foam Roll — IT Band + Glutes', duration:60, reps:'30s/side', type:'DeFranco',
+    cue:'IT band: side-lying, roll outer thigh hip to knee. <strong>PAUSE on any tight spot for 3–4 breaths.</strong> Glutes: sit on roller, cross one leg over. Uncomfortable = you need it.',
+    trackable:true },
+  { id:'lacrosse', name:'Lacrosse Ball — Glute/Piriformis', duration:60, reps:'30s/side', type:'DeFranco',
+    cue:'Sit on ball, right glute first. Cross right ankle over left knee. Sink into it. Roll to find tight spots. <strong>Pause and breathe.</strong> Releases hip rotators driving your right-dominant pattern.',
+    trackable:true },
+  { id:'reach', name:'Left Side-Lying Reach', duration:40, reps:'5 breaths', type:'Corrective',
+    cue:'<strong>YOUR PATTERN RESET.</strong> Left side down, right arm reaches long across body. Long exhale each rep — feel right rib decompress. 5 deliberate breaths. Directly addresses your right-dominant rotation. Non-negotiable.',
+    trackable:true },
+  { id:'iron_cross', name:'Bent-Knee Iron Cross', duration:40, reps:'10/side', type:'DeFranco',
+    cue:'Lie on back, knees bent at 90°, calves parallel to floor. <strong>Drop knees side to side</strong> — head moves opposite direction. Keep palms down. Start slow. Mobilises thoracic rotation and opens hips. You will feel this.',
+    trackable:true },
+  { id:'rollover', name:'Roll-Over Into V-Sit', duration:40, reps:'10 reps', type:'DeFranco',
+    cue:'Roll back onto shoulders, legs overhead → <strong>swing forward into wide V-sit.</strong> Momentum-based. Opens hamstrings, thoracic, hip flexors dynamically. Should feel athletic. This is where you start sweating.',
+    trackable:true },
+  { id:'frog', name:'Rocking Frog Stretch', duration:30, reps:'10 reps', type:'DeFranco',
+    cue:'On all fours, knees wide, feet flexed. <strong>Rock hips back toward heels, then forward.</strong> Chest up. Groin and inner hip opener. LEFT hip often tighter due to ankle — notice asymmetry, do not force it.',
+    trackable:true },
+  { id:'splitsquat', name:'Left Split Squat ISO', duration:60, reps:'2 × 30s', type:'Corrective',
+    cue:'<strong>LEFT ANKLE + HIP TRUST.</strong> Left foot forward, half-kneeling. Left glute lightly squeezing. Ribs down. Slow exhale. Neuromuscular activation of the left hip pattern — not a stretch.',
+    trackable:true },
+  { id:'hydrant', name:'Fire Hydrant Circles', duration:40, reps:'10 fwd + 10 back/side', type:'DeFranco',
+    cue:'On all fours. <strong>Knee circles: 10 forward, 10 backward each side.</strong> Hip joint mobilisation in full circle. Glute activation. More aggressive than it looks. Should feel warm.',
+    trackable:true },
+  { id:'climbers', name:'Mountain Climbers (range focus)', duration:30, reps:'20 total', type:'Dynamic',
+    cue:'Push-up position. Drive knee to <strong>outside of elbow — sink down a bit</strong> to get the groin stretch, then switch. Focus: range of motion not speed. Dynamic hip flexor stretch + core temperature rising.',
+    trackable:true },
+  { id:'groiners', name:'Groiners', duration:40, reps:'10/side', type:'Dynamic',
+    cue:'Push-up position → <strong>jump both feet to outside of hands</strong> → hips sink low → hold 2s → jump back. This will make you sweat. Hip flexor, groin, ankle mobility. LEFT ankle: deliberate on landing.',
+    trackable:true },
+  { id:'tib', name:'Tibialis Raises', duration:30, reps:'2 × 12', type:'Corrective',
+    cue:'<strong>LEFT ANKLE SPECIFIC.</strong> Heels on step or against wall. Lift toes slowly — anterior shin fires. Full controlled range. Wakes up the muscle supporting your damaged tendon. Do not rush.',
+    trackable:true },
+  { id:'serratus', name:'Serratus Wall Slides', duration:30, reps:'8 reps', type:'Activation',
+    cue:'Forearms on wall, elbows 90°. Slide arms up — at top <strong>REACH slightly forward (no shrug).</strong> Feel side ribs engage. Activates serratus which protects your neck during pressing.',
+    trackable:true },
+  { id:'chintuck', name:'Chin Tucks', duration:20, reps:'8–10 reps', type:'Corrective',
+    cue:'<strong>1–2cm backward glide only.</strong> Feel deep neck flexors activate. Tells the suboccipitals it is safe to load today. If right base of skull reactive — 5 extra reps here.',
+    trackable:true },
+  { id:'ramp', name:'Progressive Ramp Sets', duration:0, reps:'2–3 sets', type:'Ramp',
+    cue:'Bar → 50–60% × 5 → 70–75% × 3 → 85% × 1–2 → working weight. <strong>Each rep is a form check.</strong> Bar speed crisp. Jaw soft. Ribs down check. If anything feels rough — add a ramp set.',
+    trackable:false },
 ];
+
 
 const ROTATION_RESET = [
-  {
-    id:'rot-reach',
-    name:'Left Side-Lying Reach (extended)',
-    duration:35,
-    reps:'5 breaths',
-    type:'Rotation Reset',
-    cue:'Right side up. Reach left arm long, let right rib decompress fully. <strong>This is the core correction for your right-dominant pattern.</strong> 5 slow breaths — more release each exhale.',
-    trackable:true
-  },
-  {
-    id:'rot-splitsquat',
-    name:'Left Split Squat ISO (extended)',
-    duration:50,
-    reps:'2 × 20–30s',
-    type:'Rotation Reset',
-    cue:'Left foot forward. <strong>Left glute actively squeezing.</strong> Ribs down. This builds the left hip trust that stops the right shift pattern upstream. Hold 20–30s, breathe, keep breathing.',
-    trackable:true
-  },
-  {
-    id:'rot-serratuspunch',
-    name:'Right-Arm Serratus Cable Punch',
-    duration:35,
-    reps:'3 × 10',
-    type:'Rotation Reset',
-    cue:'Use a cable or band. <strong>Exhale at the end of each punch.</strong> Shoulder stays heavy — not elevated. This directly addresses the right serratus weakness that drives your right rib jam. 3 sets of 10, controlled.',
-    trackable:true
-  },
+  { id:'rot-reach', name:'Extended Left Side-Lying Reach', duration:60, reps:'8 breaths', type:'Corrective',
+    cue:'Right arm reaches further than standard. With each exhale: more rib release, more rotation reset. Feel the pull in the right thoracic. <strong>This is your neck prevention work.</strong>',
+    trackable:true },
+  { id:'rot-split', name:'Left Split Squat ISO (extended)', duration:90, reps:'3 × 30s', type:'Corrective',
+    cue:'<strong>3 holds instead of 2.</strong> Left glute squeezing. Left ankle owns the floor. Builds left-side trust to reduce right-dominant loading that compresses right neck.',
+    trackable:true },
+  { id:'rot-serratus', name:'Right Serratus Cable Punch', duration:60, reps:'3 × 10', type:'Corrective',
+    cue:'Cable or band. RIGHT arm punches forward. <strong>Exhale at end of each rep.</strong> Shoulder HEAVY not elevated. Directly activates right serratus inhibited by your right-dominant pattern.',
+    trackable:true },
+  { id:'rot-suboccipital', name:'Suboccipital Self-Release', duration:60, reps:'60s hold', type:'Corrective',
+    cue:'Lie on back. Place fingers at base of skull. <strong>Gentle upward traction</strong> — not pulling hard, just taking weight of skull slightly. Long exhale. Decompresses right suboccipital area.',
+    trackable:true },
+  { id:'rot-nod', name:'Head Nods (slow)', duration:30, reps:'10 slow', type:'Corrective',
+    cue:'Small slow YES motion. Only 20% range. Mobilises C0-C1 joint. Decompresses right base of skull. <strong>Jaw SOFT throughout.</strong> If any sharp pain — stop immediately.',
+    trackable:true },
 ];
 
+
 const JAW_CHECK_STEP = {
-  id:'jaw',
-  name:'Jaw Check + Loop Scan',
-  duration:20,
-  reps:'30s',
-  type:'Reset',
+  id:'jaw-check', name:'Jaw Check + Loop Scan', duration:30, reps:'30s', type:'Reset',
   cue:'<strong>Teeth apart.</strong> Tongue soft on roof. One long exhale 6–8s. Feel shoulders drop.\n\nNow ask: <strong>Am I carrying something unresolved right now?</strong> If yes — name it. Make one decision in 10 seconds: Do now / Schedule it / Delete it.\n\nThis is not optional on high-jaw days. Physical release without the loop close lasts 5 minutes.',
   trackable:true
 };
+
+
+
+const UPPER_WARMUP_BASE = [
+  { id:'jaw-upper', name:'Jaw Check', duration:30, reps:'1 exhale', type:'Reset',
+    cue:'<strong>Jaw clench during bench loads the SCM and suboccipitals directly.</strong> Teeth apart. One long exhale. Shoulders drop. This is critical before pressing — not optional.',
+    trackable:true },
+  { id:'foam-thoracic', name:'Foam Roll — Thoracic Spine', duration:60, reps:'60s', type:'DeFranco',
+    cue:'Foam roller horizontal across mid-back (T6-T8). Arms crossed on chest. <strong>Arch gently over roller. Breathe.</strong> Move up slightly, repeat, then down. Opens thoracic extension BEFORE pressing. Pressing with stiff thoracic = neck compensation.',
+    trackable:true },
+  { id:'foam-lats', name:'Foam Roll — Lats', duration:60, reps:'30s/side', type:'DeFranco',
+    cue:'Side-lying. Roller under armpit/lat. Roll slowly from armpit to mid-back. <strong>Pause on tight spots.</strong> LEFT lat often tighter. Improves how shoulder sits in socket for pulling.',
+    trackable:true },
+  { id:'breathing-upper', name:'90/90 Breathing', duration:40, reps:'5 breaths', type:'Corrective',
+    cue:'<strong>Your rib reset before pressing.</strong> Long exhale until lower ribs drop. Feel lower abs lightly engage. If ribs flare going into Spoto press — neck pays the price.',
+    trackable:true },
+  { id:'iron-cross-upper', name:'Bent-Knee Iron Cross', duration:30, reps:'8/side', type:'DeFranco',
+    cue:'On back, knees bent, <strong>drop side to side</strong> — head moves opposite direction. For upper sessions this mobilises thoracic rotation needed for rowing and pressing.',
+    trackable:true },
+  { id:'serratus-upper', name:'Serratus Wall Slides', duration:30, reps:'10 reps', type:'Activation',
+    cue:'Forearms on wall → slide up → <strong>REACH at top (no shrug).</strong> 10 reps deliberate. Feel side ribs engage. Most important upper warm-up exercise for you specifically.',
+    trackable:true },
+  { id:'pullapart', name:'Band Pull-Apart', duration:30, reps:'20 reps', type:'Activation',
+    cue:'Band at chest height. Straight arms. Pull apart to chest. <strong>Squeeze at end range.</strong> 20 reps. Sets external rotators before pressing. If no band: face pull light × 15.',
+    trackable:true },
+  { id:'scap-pushup', name:'Scap Push-Ups', duration:30, reps:'10 reps', type:'Activation',
+    cue:'Plank position. Without bending elbows — let chest sink (protract) → push floor away (retract). <strong>Feel shoulder blades move independently.</strong> Serratus and lower traps.',
+    trackable:true },
+  { id:'chintuck-upper', name:'Chin Tucks', duration:25, reps:'10 reps', type:'Corrective',
+    cue:'<strong>1–2cm backward glide. 10 reps.</strong> Pressing with inactive deep neck flexors means neck extensors stabilise instead. That is your right base of skull pattern.',
+    trackable:true },
+  { id:'shoulder-circles', name:'Shoulder Circles (controlled)', duration:30, reps:'10 fwd + 10 back', type:'Dynamic',
+    cue:'Large slow circles. Feel shoulder joint through full range. Any restriction — move slower through that range. Joint lubrication not a stretch.',
+    trackable:true },
+  { id:'overhead-slides', name:'Overhead Wall Slides', duration:30, reps:'8 reps', type:'Activation',
+    cue:'Stand against wall. Forearms on wall, elbows 90°. <strong>Slide arms overhead — keep forearms on wall, no shrug.</strong> Feel lower traps fire. Pressing mechanics improve with each rep.',
+    trackable:true },
+  { id:'ramp-upper', name:'Spoto Press Ramp Sets', duration:0, reps:'3 ramp sets', type:'Ramp',
+    cue:'Bar × 8 → 50% × 5 → 70% × 3 → working weight. <strong>EACH SET: ribs down check, jaw soft check, right shoulder soft check.</strong> These are technique rehearsal, not warm-up sets.',
+    trackable:false },
+];
 
 // Warm-up state
 const WU_STATE = {
@@ -1645,47 +1670,46 @@ const WU_STATE = {
 
 function getWarmupSteps() {
   const workout = getTodayWorkout();
-  const isLower = workout.title.toLowerCase().includes('lower') || workout.title.toLowerCase().includes('day a') || workout.title.toLowerCase().includes('day b');
-  const isUpper = workout.title.toLowerCase().includes('upper') || workout.title.toLowerCase().includes('push') || workout.title.toLowerCase().includes('pull');
-  const isRecovery = workout.title.toLowerCase().includes('recovery');
+  const title = workout.title.toLowerCase();
+  const isUpper = title.includes('upper') || title.includes('push') || title.includes('pull');
+  const isRecovery = title.includes('recovery') || title.includes('conditioning');
   const neckHigh = STATE.lastLog.neck >= 5;
   const jawHigh = STATE.lastLog.jaw === 'High';
-  const needsRotReset = neckHigh || isLower;
+  const addReactiveBlock = neckHigh || STATE.lastLog.neck >= 3;
 
   let steps = [];
 
-  // Always start with jaw check if jaw or neck is elevated
-  if (jawHigh || STATE.lastLog.jaw === 'Medium') {
-    steps.push({...JAW_CHECK_STEP});
-  }
-
   if (isRecovery) {
-    // Short version for recovery days
-    steps.push(WARMUP_BASE[0]); // breathing
-    steps.push(WARMUP_BASE[1]); // reach
-    steps.push(WARMUP_BASE[2]); // split squat
+    // Short conditioning warm-up
+    steps.push(JAW_CHECK_STEP);
+    steps.push({id:'leg-swings-fb', name:'Leg Swings — Front/Back', duration:30, reps:'15/side', type:'Dynamic',
+      cue:'Hold wall. Swing leg forward and back — progressively bigger range. LEFT leg: notice if swing is restricted.',trackable:true});
+    steps.push({id:'leg-swings-ss', name:'Leg Swings — Side to Side', duration:30, reps:'15/side', type:'Dynamic',
+      cue:'Same position. Swing leg across body and out to side. Hip abductor and adductor opening.',trackable:true});
+    steps.push({id:'inchworm', name:'Inchworm + Push-Up', duration:45, reps:'8 reps', type:'Dynamic',
+      cue:'Stand → hinge → walk hands out to plank → one push-up → walk hands back → stand. Full body. Temperature rising.',trackable:true});
+    steps.push({id:'groiners-cond', name:'Groiners', duration:30, reps:'10/side', type:'Dynamic',
+      cue:'Push-up position → jump foot to outside of hand → sink hips → hold 2s → return. Makes you sweat. LEFT ankle deliberate.',trackable:true});
+    steps.push({id:'high-knees', name:'High Knees / Fast March', duration:30, reps:'30s', type:'Dynamic',
+      cue:'On spot. Drive knees up, arms pump. 30 seconds continuous. HR up. Body at training temperature. Ready.',trackable:true});
     return steps;
   }
 
-  // Full warm-up
-  steps.push(WARMUP_BASE[0]); // 90/90 breathing
-  steps.push(WARMUP_BASE[1]); // left side-lying reach
-
-  // Add rotation reset for lower days or reactive neck
-  if (needsRotReset) {
-    steps.push(...ROTATION_RESET);
+  if (isUpper) {
+    // Upper body DeFranco hybrid
+    if (jawHigh || STATE.lastLog.jaw === 'Medium') steps.push(JAW_CHECK_STEP);
+    steps = steps.concat(UPPER_WARMUP_BASE);
+    if (addReactiveBlock) steps = steps.concat(ROTATION_RESET.slice(0,3));
+    return steps;
   }
 
-  steps.push(WARMUP_BASE[2]); // split squat ISO
-  steps.push(WARMUP_BASE[3]); // tib raises
-  steps.push(WARMUP_BASE[4]); // wall slides
-  steps.push(WARMUP_BASE[5]); // dead bug
-  steps.push(WARMUP_BASE[6]); // scap push-ups
-  steps.push(WARMUP_BASE[7]); // sled/march
-  steps.push(WARMUP_BASE[8]); // ramp sets
-
+  // Lower body / hinge — full DeFranco hybrid
+  if (jawHigh || STATE.lastLog.jaw === 'Medium') steps.push(JAW_CHECK_STEP);
+  steps = steps.concat(WARMUP_BASE);
+  if (addReactiveBlock) steps = [steps[0], ...ROTATION_RESET, ...steps.slice(1)];
   return steps;
 }
+
 
 function openWarmup() {
   WU_STATE.steps = getWarmupSteps();
@@ -1754,11 +1778,16 @@ function renderWarmup() {
     card.className = `wu-step${isActive ? ' active-step' : isDone ? ' completed-step' : ''}`;
     card.id = `wu-step-${idx}`;
 
-    const typeColors = {
-      'Reset':'var(--accent)', 'Activate':'var(--yellow)', 'Scap':'#a78bfa',
-      'Integrate':'#60a5fa', 'Prime':'var(--green)', 'Ramp':'var(--text2)',
+        const typeColors = {
+      'Reset':'var(--accent)',
+      'Corrective':'#f87171',
+      'DeFranco':'#34d399',
+      'Dynamic':'#60a5fa',
+      'Activation':'#a78bfa',
+      'Ramp':'var(--text2)',
       'Rotation Reset':'var(--red)'
     };
+
     const typeColor = typeColors[step.type] || 'var(--text3)';
 
     const numContent = WU_STATE.completed.has(idx)
@@ -2110,7 +2139,7 @@ function renderSession() {
   // Phase banner
   const banner = document.createElement('div');
   banner.className = 'phase-banner';
-  banner.textContent = '⚡ Phase 2 — add load only when RPE ≤8 cleanly. Bench: GREEN gate only.';
+  banner.textContent = '⚡ Phase 3 RECOMP — Mechanical drops + supersets. Add load when RPE ≤8. Conditioning is non-negotiable.';
   container.appendChild(banner);
   
   workout.exercises.forEach((ex, idx) => {
