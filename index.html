@@ -40,8 +40,12 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
   align-items:center; justify-content:center;
   gap:3px; cursor:pointer; border:none;
   background:none; color:var(--text2);
-  font-size:10px; font-family:inherit;
+  font-size:9px; font-family:inherit;
+  padding:0 2px;
+  min-width:0;
 }
+.nav-btn svg { width:19px; height:19px; }
+.nav-btn.active { color:var(--accent); }
 .nav-btn.active { color:var(--accent); }
 .nav-btn svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.8; }
 
@@ -357,7 +361,7 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
           <div class="brand-text">Burning off the squishiness 🔥</div>
           <div class="brand-name" id="home-greeting">Good morning, Adrian</div>
         </div>
-        <div class="phase-pill">PHASE 3</div>
+        <div class="phase-pill">PHASE A</div>
       </div>
       <div id="home-date" style="font-size:12px;color:var(--text3);padding:6px 16px 0">Monday · Big Week</div>
 
@@ -388,15 +392,17 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
         <div id="week-plan"></div>
       </div>
 
-      <div class="section-label">Phase 3 — Key Rules</div>
+      <div class="section-label">Phase A — Key Rules</div>
       <div class="card">
         <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Add 2.5–5kg when last set RPE ≤8 cleanly</div>
-          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Spoto press: bar 2cm off chest, never touch if ribs flare</div>
-          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Conditioning 2–3x/week — the recomp lever</div>
-          <div style="font-size:13px;color:var(--yellow);display:flex;gap:8px"><span>⚠</span>Right base of skull 5+/10 → remove pressing</div>
-          <div style="font-size:13px;color:var(--red);display:flex;gap:8px"><span>✗</span>No heavy overhead barbell. No grinding past RPE 9.</div>
+          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Build muscle first — strength lifts progress, add 2.5kg when RPE ≤8</div>
+          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Left ankle calf raise every lower session — your running insurance</div>
+          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Hyrox stations learned fresh — sled, carries, wall balls, lunges</div>
+          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span>Running via bike + hills first — protect the ankle</div>
+          <div style="font-size:13px;color:var(--yellow);display:flex;gap:8px"><span>⚠</span>Neck 5+/10 → remove pressing. Jaw check before every session.</div>
+          <div style="font-size:13px;color:var(--red);display:flex;gap:8px"><span>✗</span>Sharp ankle pain on running → stop, switch to bike that day</div>
         </div>
+      </div>
       </div>
       <div style="height:20px"></div>
     </div>
@@ -416,7 +422,7 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
       <div class="screen-header">
         <div style="font-size:12px;color:var(--text3);cursor:pointer;margin-bottom:8px" onclick="goHome()">← Back</div>
         <h1 id="sess-title">Lower Body</h1>
-        <p id="sess-sub">Phase 3 · Squat + VMO + Posterior Chain</p>
+        <p id="sess-sub">Phase A · Squat + VMO + Posterior Chain</p>
       </div>
       <div class="tab-row" id="sess-tabs"></div>
       <div id="sess-content"></div>
@@ -426,7 +432,7 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
     <div id="screen-track" class="screen">
       <div class="screen-header">
         <h1>Track</h1>
-        <p>Phase 3 — Week 10 progress</p>
+        <p>Phase A — Week 1 progress</p>
       </div>
       <div id="track-content"></div>
     </div>
@@ -439,7 +445,7 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
       </div>
       <div id="chat-messages">
         <div class="msg msg-ai">
-          <div class="msg-bubble">Hey Adrian 👋 Phase 3, recomp mode. I know your neck patterns, the jaw work, the DeFranco warm-up, everything. What do you need today?</div>
+          <div class="msg-bubble">Hey Adrian 👋 Phase A, recomp mode. I know your neck patterns, the jaw work, the DeFranco warm-up, everything. What do you need today?</div>
           <div class="msg-time">Now</div>
         </div>
       </div>
@@ -459,6 +465,16 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
       </div>
       <div id="roadmap-content"></div>
     </div>
+
+    <!-- NECK & MOBILITY -->
+    <div id="screen-mobility" class="screen">
+      <div class="screen-header">
+        <h1>Neck &amp; Mobility</h1>
+        <p>Your daily support system</p>
+      </div>
+      <div id="mobility-content"></div>
+    </div>
+
 
   </div><!-- /screen-area -->
 
@@ -480,6 +496,10 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
       <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
       Track
     </button>
+        <button class="nav-btn" id="nav-mobility" onclick="showTab('mobility')">
+      <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 1.5 3 5 3 5s3-3.5 3-5a3 3 0 0 0-3-3z"/><path d="M12 10v6"/><path d="M8 20h8"/><path d="M9 16h6"/></svg>
+      Neck
+    </button>
     <button class="nav-btn" id="nav-coach" onclick="showTab('coach')">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
       Coach
@@ -494,332 +514,170 @@ body { height:100%; background:#000; font-family:-apple-system,BlinkMacSystemFon
 </div>
 
 <script>
-const WORKOUTS = {
-  // ── BIG WEEK ────────────────────────────────────────────────────────────────
-  mon: {
-    title:'Lower Body', sub:'Squat + VMO + Posterior Chain', type:'lower',
-    exercises:[
-      {name:'Jaw Check + Breath Reset',sets:'1 exhale',rpe:'—',rest:'—',
-       cue:'Teeth apart. One long 8s exhale. Feel shoulders drop. Am I braced or clear? If braced — two more exhales before moving on.'},
-      {name:'Front Squat → Goblet Squat (Mech Drop)',sets:'3×6 front → 8 goblet',rpe:'8–9',rest:'90s',
-       cue:'6 front squats RPE 8 → rack immediately → goblet squats no rest. Left midfoot bias throughout. No rest between variations.',
-       swap:'Low-bar squat → goblet if neck reactive'},
-      {name:'Romanian Deadlift (Hypertrophy — slow eccentric)',sets:'4×10–12',rpe:'8',rest:'90s',
-       cue:'RDL as HYPERTROPHY movement. 3s eccentric — feel the hamstring load. Heavier than Phase 1. Ribs down. Long neck.',
-       swap:'Hip hinge machine 4×12'},
-      {name:'Bulgarian Split Squat → Leg Press (Mech Drop)',sets:'3×8/side → 12 leg press',rpe:'9',rest:'90s',
-       cue:'START LEFT. 8 Bulgarian RPE 8–9 → immediately leg press feet low × 12. No rest between. Massive quad and glute stimulus.',
-       swap:'Heel-elevated split squat → goblet'},
-      {name:'Hip Thrust',sets:'4×10–12',rpe:'8',rest:'75s',
-       cue:'Higher reps than Phase 2. Squeeze hard at top for 1s. Chin tucked hard. Glute shape work.',
-       swap:'Glute bridge machine 4×15'},
-      {name:'Left Ankle Calf Raise (single leg)',sets:'3×15 slow',rpe:'7',rest:'60s',
-       cue:'LEFT leg only. 3s lower. Full range. Tendon rebuilding — not optional, every session.',
-       swap:'Seated calf raise'},
-      {name:'Suitcase + Farmer Carry Superset',sets:'3 rounds: 20m suit + 20m farmer',rpe:'Hard',rest:'60s',
-       cue:'Suitcase LEFT first × 20m → double farmer carry × 20m. Posture under fatigue. Core recomp work.',
-       swap:'Suitcase only × 30m'},
-    ]},
-  tue: {
-    title:'Upper Push', sub:'Chest + Back Supersets + Shoulders', type:'upper',
-    exercises:[
-      {name:'Jaw Check + Chin Tucks + Wall Slides',sets:'30s + 5 + 6',rpe:'—',rest:'—',
-       cue:'Jaw: teeth apart one exhale. Chin tucks: 5 gentle 1–2cm. Wall slides: 6 with reach. This is your Phase 3 upper warm-up.'},
-      {name:'A1: Spoto Press (Close-Grip Bench)',sets:'4×6–8',rpe:'7–8',rest:'30–45s then A2',
-       cue:'SUPERSET A. Bar 2cm off chest. Exhale hard on press. Ribs DOWN throughout. Right shoulder soft. Jaw check before each set.',
-       swap:'Low incline DB neutral press', gate:true},
-      {name:'A2: Chest-Supported Row',sets:'4×10–12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET A — immediately after Spoto. Pull elbow to hip. No shrug. Long neck. Pressing muscles recover while pulling.',
-       swap:'Seated cable row'},
-      {name:'B1: Landmine Press',sets:'3×10',rpe:'8',rest:'30–45s then B2',
-       cue:'SUPERSET B. Exhale → reach at top. Neck quiet. Higher reps than Phase 2.',
-       swap:'Low incline DB neutral'},
-      {name:'B2: Lat Pulldown / Pull-Up',sets:'3×10–12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET B — immediately after landmine. Drive elbows to hips. No neck craning. Add weight if bodyweight RPE ≤6.',
-       swap:'Assisted pull-up'},
-      {name:'Lateral Raise (myo-rep)',sets:'3×12 + 3 myo',rpe:'9',rest:'15s between myo',
-       cue:'True myo-rep: 12 reps → 15s rest → 4 reps → 15s → 4 reps → 15s → 4 reps. Stop at 80°. No trap takeover.',
-       swap:'Cable lateral raise'},
-      {name:'Face Pull → External Rotation',sets:'3×15',rpe:'7',rest:'60s',
-       cue:'Elbows high. Rotate to full stop. High reps not heavy load.',
-       swap:'Band pull-apart'},
-      {name:'Prone Y Raise',sets:'3×10–12 slow',rpe:'7',rest:'60s',
-       cue:'Lower traps only. 3s up 3s down. Postural medicine. Protects neck-shoulder chain.',
-       swap:'Trap-3 raise on incline bench'},
-      {name:'Tricep Pressdowns (myo-rep)',sets:'2×12 + 3 myo',rpe:'9',rest:'60s',
-       cue:'12 reps → 15s rest → 4 reps × 3. Elbows pinned. Ribs down.',
-       swap:'Cross-body extension'},
-      {name:'Incline DB Curls (myo-rep)',sets:'2×10 + 3 myo',rpe:'9',rest:'60s',
-       cue:'10 reps → 15s rest → 4 reps × 3. Elbows back. Full range. Slow eccentric.',
-       swap:'Cable curl'},
-    ]},
-  thu: {
-    title:'Upper Pull', sub:'Back Thickness + Bicep Supersets', type:'upper',
-    exercises:[
-      {name:'Jaw Check + Wall Slides',sets:'30s + 6',rpe:'—',rest:'—',
-       cue:'Quick reset. Jaw: one exhale teeth apart. Wall slides 6 with reach. Serratus activates before pulling.'},
-      {name:'A1: Weighted Pull-Up / Lat Pulldown',sets:'4×6–8',rpe:'8',rest:'30–45s then A2',
-       cue:'SUPERSET A. Add weight if bodyweight RPE ≤6. Drive elbows to hips — not hands. No neck craning.',
-       swap:'Assisted pull-up 4×10'},
-      {name:'A2: Incline DB Curl',sets:'4×10–12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET A — immediately after pull-ups. Elbows back. Full range. Slow eccentric.',
-       swap:'Cable curl'},
-      {name:'B1: Chest-Supported Row (heavy)',sets:'4×8–10',rpe:'9',rest:'30–45s then B2',
-       cue:'SUPERSET B. Heaviest row of the week. Pull elbow to hip. No shrug. Long neck.',
-       swap:'Seated cable row'},
-      {name:'B2: Hammer Curl',sets:'4×12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET B — immediately after heavy row. Neutral grip. Brachialis and forearm thickness.',
-       swap:'DB curl'},
-      {name:'1-Arm Cable Row',sets:'3×12/side',rpe:'8',rest:'60–75s',
-       cue:'RIGHT: shoulder away from ear. LEFT: smooth reach and pull. Control both sides equally.',
-       swap:'DB row on bench'},
-      {name:'Face Pull → External Rotation',sets:'3×15',rpe:'7',rest:'60s',
-       cue:'Elbows high. Rotate to stop. Rotator cuff health every session.',
-       swap:'Band pull-apart'},
-      {name:'Serratus Wall Slides',sets:'3×10',rpe:'7',rest:'45s',
-       cue:'Reach at top. No shrug. Protects neck-shoulder chain.',
-       swap:'Cable serratus punch'},
-    ]},
-  fri: {
-    title:'Lower Hinge', sub:'Deadlift + Posterior + Conditioning Finisher', type:'lower',
-    exercises:[
-      {name:'Jaw Check + Rotation Reset',sets:'1 round',rpe:'—',rest:'—',
-       cue:'Jaw exhale → left side-lying reach 3 breaths → left split squat ISO 20s. Short but non-negotiable before heavy hinging.'},
-      {name:'Paused Deadlift (2s off floor)',sets:'4×4–5',rpe:'7–8',rest:'2–3 min',
-       cue:'STRENGTH WORK — keep heavy and crisp. 2s pause = form check every rep. Lats on, ribs down, long neck, then drive. Add 5kg when RPE ≤8.',
-       swap:'Hip hinge machine or rack pull if form breaks'},
-      {name:'Romanian Deadlift (Hypertrophy)',sets:'3×12–15 slow',rpe:'8',rest:'90s',
-       cue:'After paused DL: RDL for hypertrophy reps. 3s eccentric. Stretch hamstrings. Different stimulus to heavy work above.',
-       swap:'Leg curl machine 3×15'},
-      {name:'Bulgarian Split Squat',sets:'3×10/side',rpe:'8',rest:'90s',
-       cue:'START LEFT. Higher reps than Phase 2. Slow eccentric. This is hypertrophy work now.',
-       swap:'Leg press feet low'},
-      {name:'Ham Curl (myo-rep)',sets:'3×12 + 3 myo',rpe:'9',rest:'60s',
-       cue:'12 reps → 15s rest → 4 reps × 3. Full range. Hips flat. Slow eccentric.',
-       swap:'Nordic hamstring assisted'},
-      {name:'Left Ankle Calf Raise',sets:'3×15 slow',rpe:'7',rest:'60s',
-       cue:'LEFT only. 3s lower. Every session.',
-       swap:'Seated calf raise'},
-      {name:'Conditioning Finisher: Sled + Carry Circuit',sets:'4 rounds',rpe:'Hard',rest:'Walk back',
-       cue:'20m reverse sled → 20m suitcase LEFT → 20m suitcase RIGHT → walk 30m recovery. 4 rounds. Replaces a separate conditioning session.',
-       swap:'4×25m suitcase carry only if no sled'},
-    ]},
-  // ── KID WEEK ─────────────────────────────────────────────────────────────────
-  'kid_mon': {
-    title:'Lower Body + Push', sub:'Squat + Push Superset + Posterior', type:'lower',
-    exercises:[
-      {name:'Jaw Check + Rotation Reset',sets:'1 round',rpe:'—',rest:'—',
-       cue:'One exhale jaw open. Left side-lying reach 3 breaths. Left split squat ISO 20s. 3 minutes max.'},
-      {name:'Front Squat → Goblet (Mech Drop)',sets:'3×6 → 8',rpe:'8–9',rest:'90s',
-       cue:'6 front squats RPE 8 → rack → 8 goblet squats no rest. Left midfoot bias.',
-       swap:'Low-bar squat → goblet'},
-      {name:'A1: Spoto Press',sets:'3×8',rpe:'8',rest:'30–45s then A2',
-       cue:'SUPERSET A. Bar 2cm off chest. Exhale press. Ribs down. Jaw check before each set.',
-       swap:'Low incline DB neutral', gate:true},
-      {name:'A2: Chest-Supported Row',sets:'3×10–12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET A — immediately after Spoto. Pull elbow to hip. No shrug.',
-       swap:'Seated cable row'},
-      {name:'Hip Thrust',sets:'3×12',rpe:'8',rest:'75s',
-       cue:'1s squeeze at top. Chin tucked.',
-       swap:'Glute bridge'},
-      {name:'Bulgarian Split Squat',sets:'3×10/side',rpe:'8',rest:'90s',
-       cue:'START LEFT. Slow eccentric. Heavier than Phase 2.',
-       swap:'Leg press'},
-      {name:'Left Ankle Calf Raise',sets:'3×15 slow',rpe:'7',rest:'60s',
-       cue:'LEFT only. 3s lower. Every session.',
-       swap:'Seated calf raise'},
-      {name:'Conditioning Finisher',sets:'3 rounds',rpe:'Hard',rest:'60s',
-       cue:'20m reverse sled → 20m suitcase carry LEFT → 20m suitcase carry RIGHT. 3 rounds.',
-       swap:'3×25m suitcase carry'},
-    ]},
-  'kid_wed': {
-    title:'Lower Hinge + Pull', sub:'Deadlift + Pull Superset', type:'lower',
-    exercises:[
-      {name:'Jaw Check + Wall Slides',sets:'30s + 6',rpe:'—',rest:'—',
-       cue:'Quick reset. Jaw exhale. Wall slides 6 with reach.'},
-      {name:'Paused Deadlift (2s)',sets:'4×4–5',rpe:'7–8',rest:'2–3 min',
-       cue:'Heavy and crisp. 2s pause = form check. Add 5kg when RPE ≤8.',
-       swap:'RDL or hip hinge machine'},
-      {name:'A1: Pull-Up / Lat Pulldown',sets:'3×8–10',rpe:'8',rest:'30–45s',
-       cue:'SUPERSET A. Drive elbows to hips. No neck craning.',
-       swap:'Assisted pull-up'},
-      {name:'A2: RDL (slow eccentric)',sets:'3×12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET A — 3s lower. Hamstring hypertrophy. Different stimulus to paused DL.',
-       swap:'Leg curl machine'},
-      {name:'B1: Chest-Supported Row (heavy)',sets:'3×8–10',rpe:'9',rest:'30–45s',
-       cue:'SUPERSET B. Heaviest row of week. Pull elbow to hip.',
-       swap:'1-arm cable row'},
-      {name:'B2: Ham Curl (myo-rep)',sets:'3×10 + 3 myo',rpe:'9',rest:'90s after pair',
-       cue:'SUPERSET B — 10 reps → 15s → 4 reps × 3.',
-       swap:'Nordic assisted'},
-      {name:'Left Ankle Calf Raise',sets:'3×15',rpe:'7',rest:'60s',
-       cue:'LEFT only. 3s lower.',
-       swap:'Seated calf raise'},
-    ]},
-  'kid_fri': {
-    title:'Upper Push/Pull', sub:'Full Upper Superset Session', type:'upper',
-    exercises:[
-      {name:'Jaw Check + Chin Tucks',sets:'30s + 5',rpe:'—',rest:'—',
-       cue:'Jaw exhale. Chin tucks 5 gentle.'},
-      {name:'A1: Spoto Press',sets:'4×6–8',rpe:'8',rest:'30–45s then A2',
-       cue:'SUPERSET A. Bar 2cm off chest. Ribs down. Jaw check before each set.',
-       swap:'Low incline DB neutral', gate:true},
-      {name:'A2: Chest-Supported Row',sets:'4×10',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET A — immediately after Spoto.',
-       swap:'Seated cable row'},
-      {name:'B1: Landmine Press',sets:'3×10–12',rpe:'8',rest:'30–45s then B2',
-       cue:'SUPERSET B. Exhale → reach. Neck quiet.',
-       swap:'DB shoulder press'},
-      {name:'B2: Pull-Up / Lat Pulldown',sets:'3×10–12',rpe:'8',rest:'90s after pair',
-       cue:'SUPERSET B — drive elbows.',
-       swap:'Assisted pull-up'},
-      {name:'Lateral Raise + Face Pull',sets:'3×12 + 3×15',rpe:'9+7',rest:'60s',
-       cue:'Lateral raise → immediately face pull. Shoulder width + rotator cuff health.',
-       swap:'Cables for both'},
-      {name:'Prone Y Raise',sets:'3×12',rpe:'7',rest:'60s',
-       cue:'Lower traps. Slow. Protects neck chain.',
-       swap:'Trap-3 raise'},
-      {name:'Left Ankle Calf Raise',sets:'3×15',rpe:'7',rest:'60s',
-       cue:'LEFT only. 3s lower.',
-       swap:'Seated calf raise'},
-      {name:'Conditioning: Intervals',sets:'15–18 min',rpe:'7/10',rest:'90s easy',
-       cue:'5 min easy → 5×90s hard / 90s easy → 3 min cool-down. Bike or rower preferred.',
-       swap:'Reverse sled drag 15 min'},
-    ]},
-  // ── CONDITIONING SESSIONS (PERIODISED 4-WEEK BLOCK) ──────────────────────────
-  'cond_week1': {
-    title:'Week 1 — Aerobic Base', sub:'Zone 2 · 35 min · Build the engine', type:'cond',
-    note:'Week 1 focus: build aerobic foundation. Do not go harder — stay easy the whole time. This is where fat oxidation happens.',
-    exercises:[
-      {name:'Zone 2 Bike / Walk / Row',sets:'35 min',rpe:'Easy',rest:'—',
-       cue:'Easy nasal breathing throughout. Full conversation possible. Jaw soft. HR below 135bpm. Best fasted in morning.'},
-      {name:'Cool-Down Walk',sets:'5 min',rpe:'Easy',rest:'—',
-       cue:'Drop pace to stroll. Breathing returns to normal. Jaw soft. Check in with neck — should feel looser than when you started.'},
-    ]},
-  'cond_week2': {
-    title:'Week 2 — Aerobic Threshold', sub:'Comfortably hard · 30 min', type:'cond',
-    note:'Week 2: first threshold work. Tests the aerobic base you built in Week 1. HR 140–155 in middle block.',
-    exercises:[
-      {name:'Easy Warm-Up',sets:'10 min',rpe:'Easy',rest:'—',
-       cue:'Zone 2 pace. Nasal breathing. Get the body temperature up before the threshold block.'},
-      {name:'Threshold Block',sets:'15 min',rpe:'Comfortably hard',rest:'—',
-       cue:'HR 140–155bpm. Can speak in short sentences only — not full paragraphs. Mouth breathing OK, but controlled. Bike, row or run.'},
-      {name:'Easy Cool-Down',sets:'5 min',rpe:'Easy',rest:'—',
-       cue:'Drop back to Zone 2 pace. HR should fall below 120 before you stop.'},
-    ]},
-  'cond_week3': {
-    title:'Week 3 — Interval Power', sub:'Hard efforts · 22 min', type:'cond',
-    note:'Week 3: highest metabolic demand. Only do this if sleep has averaged 6.5h+ this week. If not — do Zone 2 instead.',
-    exercises:[
-      {name:'Warm-Up',sets:'5 min',rpe:'Easy',rest:'—',
-       cue:'Easy pace. Get HR to 120 before starting intervals.'},
-      {name:'Intervals × 6',sets:'6 × 90s hard',rpe:'Hard',rest:'90s easy walk between',
-       cue:'Each interval at genuine hard effort — HR 160+. Not a sprint, but a hard sustained push. 90s easy walk between. Bike or rower preferred (lower ankle stress).'},
-      {name:'Cool-Down',sets:'5 min',rpe:'Easy',rest:'—',
-       cue:'5 min easy. HR should drop below 130 before finishing.'},
-    ]},
-  'cond_week4': {
-    title:'Week 4 — Mixed Consolidation', sub:'Moderate · 30 min · Show it is sustainable', type:'cond',
-    note:'Week 4: consolidation. Should feel easier than Week 3. This week shows you the fitness you have built.',
-    exercises:[
-      {name:'Zone 2 Block',sets:'10 min',rpe:'Easy',rest:'—',
-       cue:'Start easy. Build temperature gently.'},
-      {name:'Moderate-Hard Intervals × 4',sets:'4 × 2 min',rpe:'Moderate-hard',rest:'2 min easy between',
-       cue:'4 × 2 min at moderate-hard effort. Not as hard as Week 3 intervals. HR 145–155. 2 min easy recovery between each.'},
-      {name:'Zone 2 Cool-Down',sets:'8 min',rpe:'Easy',rest:'—',
-       cue:'Finish with 8 min Zone 2. Should feel like a recovery run after the intervals.'},
-    ]},
-  'cond_sled': {
-    title:'Sled Intervals', sub:'VMO + posterior · 15–20 min', type:'cond',
-    note:'Low spinal load. Great for VMO and posterior chain. Good choice when lower back is fatigued from deadlifts.',
-    exercises:[
-      {name:'Reverse Sled Drag — Warm-Up',sets:'3 × 20m easy',rpe:'Easy',rest:'Walk back',
-       cue:'Upright. Knees forward. Constant tension. Slow to start.'},
-      {name:'Sled Push Intervals',sets:'8–10 × 20m',rpe:'Hard',rest:'Walk back',
-       cue:'Heavy push — upright, shoulders down, no shrugging. Ribs stacked. Each 20m at hard effort. Walk back is recovery.'},
-      {name:'Reverse Sled Drag — Finisher',sets:'4 × 20m',rpe:'Moderate',rest:'60s',
-       cue:'Finish with reverse drags. Constant quad tension. Athletic engine work.'},
-    ]},
-  'cond_carry': {
-    title:'Carry + March Flow', sub:'Core recomp · 10–15 min', type:'cond',
-    note:'Core anti-lateral stability. Posture under load. Good on any day — low recovery cost.',
-    exercises:[
-      {name:'Suitcase Carry — LEFT first',sets:'5 × 25m',rpe:'Hard',rest:'60s',
-       cue:'LEFT hand always leads. Ribs stacked. Shoulder heavy not elevated. Nasal breathing. +1 extra set left if imbalance obvious.'},
-      {name:'Farmer Carry',sets:'4 × 25m',rpe:'Hard',rest:'60s',
-       cue:'Double carry. Tall posture. No leaning. Jaw soft. Grip until your hands give out.'},
-      {name:'Fast March',sets:'4 × 30s',rpe:'Moderate',rest:'30s',
-       cue:'High knees, arm drive. 30s on, 30s rest. Core temperature finisher.'},
-    ]},
-  'cond_yoga': {
-    title:'Active Recovery / Yoga', sub:'Movement quality · 30–40 min', type:'cond',
-    note:'Recovery day option. No aggressive end-range stretching. Movement quality over depth.',
-    exercises:[
-      {name:'Yoga / Mobility Flow',sets:'30–40 min',rpe:'Easy',rest:'—',
-       cue:'Your nightly yoga format works here. Focus on thoracic, hip flexors, and left ankle mobility.'},
-      {name:'Long Walk',sets:'30–45 min',rpe:'Easy',rest:'—',
-       cue:'NZ has hills — use them. Easy pace. Arm swing loose. Jaw soft. Counts as Zone 2 conditioning.'},
-    ]},
-};
 
-const WEEK_PLANS = {
-  free: {
-    sub:'Limited kids — 5 lifting + 3 conditioning',
-    days:[
-      {day:'Mon',type:'lift',label:'Lower Body',sub:'Squat + VMO + Posterior',key:'mon'},
-      {day:'Tue',type:'lift',label:'Upper Push',sub:'Chest + Back Supersets',key:'tue'},
-      {day:'Wed',type:'cond',label:'Active Recovery',sub:'Structured conditioning — see week protocol',condKey:'cond_week1'},
-      {day:'Thu',type:'lift',label:'Upper Pull',sub:'Back Thickness + Bicep',key:'thu'},
-      {day:'Fri',type:'lift',label:'Lower Hinge',sub:'Deadlift + Posterior + Finisher',key:'fri'},
-      {day:'Sat',type:'cond',label:'Conditioning',sub:'Sled / Intervals / Carry',condKey:'cond_sled'},
-      {day:'Sun',type:'rest',label:'Rest',sub:'Recovery before pickup'},
-    ]},
-  kid: {
-    sub:'Kids time — 3 lifting + 2 conditioning',
-    days:[
-      {day:'Mon',type:'lift',label:'Lower Body + Push',sub:'Squat + Push Superset',key:'kid_mon'},
-      {day:'Tue',type:'cond',label:'Conditioning',sub:'Zone 2 or Sled',condKey:'cond_week1'},
-      {day:'Wed',type:'rest',label:'Kids arrive eve',sub:'Easy walk or yoga only',condKey:'cond_yoga'},
-      {day:'Thu',type:'rest',label:'Kids day',sub:'Family movement'},
-      {day:'Fri',type:'lift',label:'Lower Hinge + Pull',sub:'Deadlift + Pull Superset',key:'kid_wed'},
-      {day:'Sat',type:'lift',label:'Upper Push/Pull',sub:'Full Upper Superset',key:'kid_fri'},
-      {day:'Sun',type:'cond',label:'Conditioning',sub:'Zone 2 / Walk',condKey:'cond_week1'},
-    ]},
-  mixed: {
-    sub:'All sessions available — hit 3, flex with the week',
-    days:[
-      {day:'Mon',type:'lift',label:'Lower Body + Push',sub:'Squat + Push Superset',key:'kid_mon'},
-      {day:'Tue',type:'lift',label:'Upper Push',sub:'Chest + Back Supersets',key:'tue'},
-      {day:'Wed',type:'cond',label:'Active Recovery',sub:'Zone 2 / Yoga',condKey:'cond_yoga'},
-      {day:'Thu',type:'lift',label:'Upper Pull',sub:'Back + Bicep',key:'thu'},
-      {day:'Fri',type:'lift',label:'Lower Hinge',sub:'Deadlift + Single-leg',key:'fri'},
-      {day:'Sat',type:'lift',label:'Bonus Session',sub:'If energy allows',key:'kid_fri'},
-      {day:'Sun',type:'cond',label:'Conditioning',sub:'Zone 2',condKey:'cond_week1'},
-    ]},
-};
-
-
-// ── STATE ─────────────────────────────────────────────────────────────────────
 const S = {
   weekType: 'free',
-  sessionKey: 'mon',
+  sessionKey: 'big_lower',
   sessionsThisWeek: 0,
   condDone: 0,
   pin: '',
   attempts: 0,
   pinSet: false,
   settingPin: false,
-  newPinBuf: ''
+  newPinBuf: '',
+  lastLog: { sleep: 7.2, neck: 3, jaw: 'Medium' }
 };
 
-// ── WEEK PLANS ────────────────────────────────────────────────────────────────
+const WORKOUTS = {
+  // ══ BIG WEEK — no kids, 4-5 training days ══
+  big_lower: {
+    title:'Lower Body', sub:'Strength + Hypertrophy · Squat focus', type:'lower', phase:'A',
+    exercises:[
+      {name:'Jaw Check + Breath Reset',sets:'1 round',rpe:'—',rest:'—',cue:'Teeth apart. One long 8s exhale. Shoulders drop. Am I braced or clear? Set the tone before loading.'},
+      {name:'Back Squat',sets:'4×5',rpe:'7-8',rest:'2-3 min',cue:'STRENGTH anchor. Add 2.5kg when last set RPE ≤8 cleanly. Brace, ribs down, drive through midfoot. Left foot even pressure.',swap:'Front squat or hack squat if neck loads'},
+      {name:'Romanian Deadlift',sets:'4×8-10',rpe:'8',rest:'90s',cue:'3s eccentric. Feel the hamstring stretch. Ribs down, long neck. Heavier than accessory weight — this builds the posterior chain Hyrox needs.',swap:'Hip hinge machine'},
+      {name:'Bulgarian Split Squat',sets:'3×10/side',rpe:'8',rest:'90s',cue:'START LEFT. Slow eccentric. Left ankle owns the floor — this is rebuilding the tendon for running. Control, no bouncing.',swap:'Heel-elevated split squat'},
+      {name:'Walking Lunges (Hyrox prep)',sets:'3×20m',rpe:'7',rest:'75s',cue:'HYROX STATION prep. Long steps, controlled. Builds the sandbag lunge pattern early. Add DBs when bodyweight is easy.',swap:'Reverse lunge if ankle sore'},
+      {name:'Leg Curl',sets:'3×12-15',rpe:'9',rest:'60s',cue:'Hamstring isolation. Full range. Slow. Protects the knee and builds running muscle.',swap:'Nordic curl assisted'},
+      {name:'Left Ankle Calf Raise (single leg)',sets:'3×15 slow',rpe:'7',rest:'60s',cue:'LEFT only. 3s lower. Non-negotiable — this is what lets you run without blowing the calf. Every lower session.',swap:'Seated calf raise'},
+    ]},
+  big_push: {
+    title:'Upper Push', sub:'Chest + Shoulders + Triceps', type:'upper', phase:'A',
+    exercises:[
+      {name:'Jaw Check + Wall Slides + Chin Tucks',sets:'1 round',rpe:'—',rest:'—',cue:'Jaw: one exhale teeth apart. Wall slides 6 with reach. Chin tucks 5 gentle. Serratus and deep neck flexors on before pressing.'},
+      {name:'Spoto Press (close-grip bench)',sets:'4×6-8',rpe:'7-8',rest:'2 min',cue:'Bar 2cm off chest — NEVER touch if ribs flare. Exhale hard on press. Ribs down. Right shoulder soft. Jaw check before each set.',swap:'Low incline DB neutral press',gate:true},
+      {name:'Incline DB Press',sets:'3×10-12',rpe:'8',rest:'90s',cue:'Upper chest. Neutral grip easier on shoulders. Full range, controlled. Ribs stay down at the bottom.',swap:'Landmine press'},
+      {name:'Seated DB Shoulder Press',sets:'3×10-12',rpe:'8',rest:'90s',cue:'Neutral grip. Exhale up. No excessive arch. Builds the overhead strength wall balls demand.',swap:'Landmine press if overhead loads neck'},
+      {name:'Lateral Raise (myo-rep)',sets:'2×12 + 3 myo',rpe:'9',rest:'15s myo',cue:'12 reps → 15s rest → 4 reps × 3. Stop at 80°. No trap takeover. Shoulder width.',swap:'Cable lateral raise'},
+      {name:'Overhead Tricep Extension',sets:'3×12',rpe:'8',rest:'60s',cue:'Full stretch overhead. Elbows in. Slow eccentric. Long head of tricep.',swap:'Rope pressdown'},
+      {name:'Wall Ball Practice (Hyrox)',sets:'3×15',rpe:'7',rest:'60s',cue:'HYROX STATION. Squat depth, drive up, target height, breathe on the throw. Learn the rhythm now while fresh. Light ball to groove pattern.',swap:'Thrusters with DBs'},
+    ]},
+  big_pull: {
+    title:'Upper Pull', sub:'Back + Biceps + Grip', type:'upper', phase:'A',
+    exercises:[
+      {name:'Jaw Check + Wall Slides',sets:'1 round',rpe:'—',rest:'—',cue:'Quick reset. Jaw exhale. Wall slides 6 with reach. Serratus before pulling.'},
+      {name:'Weighted Pull-Up',sets:'4×6-8',rpe:'8',rest:'2 min',cue:'Add weight if bodyweight RPE ≤6. Drive elbows to hips, not hands. No neck craning. Full hang at bottom.',swap:'Lat pulldown'},
+      {name:'Chest-Supported Row',sets:'4×10-12',rpe:'8',rest:'90s',cue:'Pull elbow to hip. No shrug. Long neck. Back thickness — the SkiErg and sled pull muscle.',swap:'Seated cable row'},
+      {name:'Single-Arm DB Row',sets:'3×10/side',rpe:'8',rest:'75s',cue:'RIGHT: shoulder away from ear. LEFT: smooth. Control both sides equal. Builds the pulling strength for sled pull.',swap:'Cable row single arm'},
+      {name:'Face Pull → External Rotation',sets:'3×15',rpe:'7',rest:'60s',cue:'Elbows high. Rotate to stop. Rotator cuff health — protects the neck-shoulder chain.',swap:'Band pull-apart'},
+      {name:'Hammer Curl',sets:'3×12',rpe:'8',rest:'60s',cue:'Neutral grip. Controlled. Brachialis and forearm — grip strength for farmers carry.',swap:'DB curl'},
+      {name:'Farmers Carry (Hyrox)',sets:'3×40m heavy',rpe:'Hard',rest:'90s',cue:'HYROX STATION. Heaviest DBs/KBs you can hold. Tall posture, ribs stacked, grip until failure. Grip is trained here.',swap:'Suitcase carry each side'},
+    ]},
+  big_hybrid: {
+    title:'Hybrid / Conditioning', sub:'Hyrox base · sled + carries + run', type:'cond', phase:'A',
+    note:'This is your Hyrox engine day. Builds compromised-running base. Keep it hard but controlled — form under fatigue is the skill.',
+    exercises:[
+      {name:'HR Primer Warm-Up',sets:'1 round',rpe:'—',rest:'—',cue:'Do the conditioning warm-up (jaw check → dynamic → HR bursts). You want HR up and sweating before you start.'},
+      {name:'Sled Push',sets:'5×20m',rpe:'Hard',rest:'Walk back',cue:'HYROX STATION. Low body angle, big leg drive, small quick steps. Heavier than race weight builds strength. This is the most demanding station — respect it.',swap:'Leg press cluster if no sled'},
+      {name:'Sled Pull',sets:'5×20m',rpe:'Hard',rest:'Walk back',cue:'HYROX STATION. Arm-over-arm or walk back. Strong backward steps. Grip and posterior chain.',swap:'Heavy seated row cluster'},
+      {name:'Row Erg Intervals',sets:'5×250m',rpe:'Hard',rest:'90s',cue:'HYROX STATION. Legs-core-arms sequence. Strong drive, controlled recovery. Build the rowing engine.',swap:'Bike intervals — easier on ankle'},
+      {name:'Compromised Run',sets:'3×400m',rpe:'Moderate-hard',rest:'2 min',cue:'HYROX SKILL. Run straight after the erg work — legs will feel heavy, that IS the point. Short and controlled. Watch the ankle — stop if sharp pain.',swap:'Bike 3×3min hard if ankle flares'},
+    ]},
+  big_optional: {
+    title:'Optional 5th — Engine', sub:'Zone 2 or extra conditioning', type:'cond', phase:'A',
+    note:'Only if recovered and week allows. Builds aerobic base without much fatigue cost. Bike-biased to protect the ankle.',
+    exercises:[
+      {name:'Zone 2 Bike',sets:'40-50 min',rpe:'Easy',rest:'—',cue:'Nasal breathing. Conversational. HR under 140. This builds the aerobic engine Hyrox is won on — and it barely costs recovery. Bike protects the ankle.'},
+      {name:'OR Easy Run + Walk',sets:'25-30 min',rpe:'Easy',rest:'—',cue:'Only if ankle is happy. Run 2 min / walk 1 min. Keep it truly easy. Building running tolerance slowly.'},
+      {name:'Carry Finisher',sets:'4×30m',rpe:'Moderate',rest:'60s',cue:'Optional. Suitcase carry LEFT lead. Posture and grip. Low cost, high transfer.'},
+    ]},
+
+  // ══ SMALL WEEK — kids, 2-3 days + run with kids ══
+  small_full: {
+    title:'Full Body Strength', sub:'Hits everything in one session', type:'lower', phase:'A',
+    note:'Condensed but complete. The priority session of the small week — do this one no matter what.',
+    exercises:[
+      {name:'Jaw Check + Full Warm-Up',sets:'1 round',rpe:'—',rest:'—',cue:'Full DeFranco warm-up here — you may not have warmed up all day. Jaw, neck, hips, then HR bursts.'},
+      {name:'Back Squat',sets:'4×6',rpe:'7-8',rest:'2 min',cue:'STRENGTH. Add 2.5kg when RPE ≤8. Brace, ribs down. Left foot even. The main lift of the week.',swap:'Front squat or goblet'},
+      {name:'Spoto Press',sets:'4×8',rpe:'7-8',rest:'2 min',cue:'Bar 2cm off chest. Ribs down. Jaw check each set. Right shoulder soft.',swap:'Incline DB press',gate:true},
+      {name:'Weighted Pull-Up',sets:'4×8',rpe:'8',rest:'90s',cue:'Drive elbows to hips. Full hang. Add weight if easy.',swap:'Lat pulldown'},
+      {name:'Bulgarian Split Squat',sets:'3×10/side',rpe:'8',rest:'75s',cue:'START LEFT. Slow. Left ankle rebuild. This keeps the single-leg strength going in a busy week.',swap:'Reverse lunge'},
+      {name:'Farmers Carry',sets:'3×40m',rpe:'Hard',rest:'75s',cue:'HYROX STATION. Heavy. Tall posture. Grip. Doubles as conditioning.',swap:'Suitcase carry'},
+      {name:'Left Ankle Calf Raise',sets:'3×15 slow',rpe:'7',rest:'45s',cue:'LEFT only. 3s lower. Never skip — this is your running insurance.',swap:'Seated calf raise'},
+    ]},
+  small_upper: {
+    title:'Upper Focus', sub:'Push + Pull combined', type:'upper', phase:'A',
+    note:'The second small-week session. Upper body volume when the week allows a second gym day.',
+    exercises:[
+      {name:'Jaw Check + Upper Warm-Up',sets:'1 round',rpe:'—',rest:'—',cue:'Thoracic + serratus + chin tucks. Jaw exhale. HR primer at the end.'},
+      {name:'Incline DB Press',sets:'4×10',rpe:'8',rest:'90s',cue:'Upper chest. Neutral grip. Ribs down. Full range.',swap:'Landmine press'},
+      {name:'Chest-Supported Row',sets:'4×10',rpe:'8',rest:'90s',cue:'Elbow to hip. No shrug. Back thickness.',swap:'Seated cable row'},
+      {name:'Seated DB Shoulder Press',sets:'3×10',rpe:'8',rest:'75s',cue:'Neutral grip. Exhale up. Wall ball prep.',swap:'Landmine press'},
+      {name:'Lateral Raise + Face Pull superset',sets:'3×12 + 15',rpe:'8',rest:'60s',cue:'Lateral raise → straight into face pull. Shoulders + rotator cuff.',swap:'Cables for both'},
+      {name:'Hammer Curl + Tricep superset',sets:'3×12 each',rpe:'8',rest:'60s',cue:'Curl → pressdown. Arms and grip.',swap:'Cable versions'},
+    ]},
+  small_run: {
+    title:'Run / Sprint with Kids', sub:'Park · street · hill', type:'cond', phase:'A',
+    note:'Your running volume, built into family time. Make it a game with the kids. Watch the ankle — walk breaks are fine. Build slowly over the 8 weeks.',
+    exercises:[
+      {name:'Dynamic Warm-Up (do WITH the kids)',sets:'5 min',rpe:'Easy',rest:'—',cue:'Leg swings, high knees, skips, a few strides. Get the ankle and calves ready. Make it a game — the kids can copy you.'},
+      {name:'Hill Repeats',sets:'6-8×20-30s',rpe:'Hard',rest:'Walk down',cue:'Find a hill in the park. Run up hard, walk down. Hills build power and are GENTLER on the ankle than flat sprints. Great with kids — they can race parts of it.',swap:'Flat strides 6×60m if no hill'},
+      {name:'Easy Run Intervals',sets:'Run 2min / walk 1min × 5-6',rpe:'Moderate',rest:'Walk',cue:'Build running tolerance. Truly easy on the run portions. If ankle complains, more walking. Week 1 start with 4 rounds, add one per week.',swap:'Bike if ankle sore that day'},
+      {name:'Play Finisher',sets:'10 min',rpe:'Fun',rest:'—',cue:'Chase games, tag, kick a ball. Movement that does not feel like training. Cool-down that keeps the kids engaged and your HR moderate.'},
+    ]},
+
+  // ══ STANDALONE CONDITIONING (available any week) ══
+  'cond_sled': {
+    title:'Sled + Carry Circuit', sub:'Hyrox stations · 15-20 min', type:'cond', phase:'A',
+    note:'Pure Hyrox station practice. Low spinal load, high transfer. Good extra day or swap.',
+    exercises:[
+      {name:'HR Primer Warm-Up',sets:'1 round',rpe:'—',rest:'—',cue:'Conditioning warm-up. HR up before you start.'},
+      {name:'Sled Push',sets:'6×20m',rpe:'Hard',rest:'Walk back',cue:'HYROX. Low angle, leg drive, quick steps.',swap:'Leg press cluster'},
+      {name:'Sled Pull',sets:'6×20m',rpe:'Hard',rest:'Walk back',cue:'HYROX. Strong backward steps. Grip.',swap:'Heavy row cluster'},
+      {name:'Farmers Carry',sets:'4×40m',rpe:'Hard',rest:'60s',cue:'HYROX. Heavy. Tall. Grip to failure.',swap:'Suitcase carry'},
+    ]},
+  'cond_zone2': {
+    title:'Zone 2 Engine', sub:'Aerobic base · 40 min', type:'cond', phase:'A',
+    note:'The engine Hyrox is won on. Bike-biased to protect the ankle. Barely costs recovery.',
+    exercises:[
+      {name:'Zone 2 Bike or Row',sets:'40 min',rpe:'Easy',rest:'—',cue:'Nasal breathing. Conversational. HR under 140. Fat oxidation and aerobic base. Bike protects the ankle.'},
+    ]},
+  'cond_yoga': {
+    title:'Recovery / Mobility', sub:'Movement quality · 30 min', type:'cond', phase:'A',
+    note:'Recovery day. Neck, hips, ankle mobility. Your nightly yoga format works here.',
+    exercises:[
+      {name:'Mobility Flow',sets:'30 min',rpe:'Easy',rest:'—',cue:'Thoracic, hip flexors, left ankle. No aggressive end-range. Quality over depth.'},
+      {name:'Neck + Jaw Release',sets:'5 min',rpe:'Easy',rest:'—',cue:'Lacrosse ball suboccipital release 90s. Jaw unclench. Levator scapulae stretch. This is your neck maintenance.'},
+    ]},
+};
 
 
-// ── WORKOUTS ──────────────────────────────────────────────────────────────────
+const WEEK_PLANS = {
+  free: {
+    sub:'Big Week — no kids, 4-5 training days',
+    days:[
+      {day:'Mon',type:'lift',label:'Lower Body',sub:'Squat strength + hypertrophy',key:'big_lower'},
+      {day:'Tue',type:'lift',label:'Upper Push',sub:'Chest + shoulders + wall ball',key:'big_push'},
+      {day:'Wed',type:'cond',label:'Hybrid / Conditioning',sub:'Sled + carries + compromised run',condKey:'big_hybrid'},
+      {day:'Thu',type:'lift',label:'Upper Pull',sub:'Back + biceps + farmers carry',key:'big_pull'},
+      {day:'Fri',type:'lift',label:'Optional Engine',sub:'Zone 2 or extra conditioning',condKey:'big_optional'},
+      {day:'Sat',type:'rest',label:'Rest / Play',sub:'Active recovery, walk, mobility'},
+      {day:'Sun',type:'rest',label:'Rest',sub:'Full recovery'},
+    ]},
+  kid: {
+    sub:'Small Week — kids, 2-3 days + run with kids',
+    days:[
+      {day:'Mon',type:'lift',label:'Full Body Strength',sub:'The priority session',key:'small_full'},
+      {day:'Tue',type:'rest',label:'Rest / Kids',sub:'Family time'},
+      {day:'Wed',type:'cond',label:'Run/Sprint with Kids',sub:'Park, street or hill',condKey:'small_run'},
+      {day:'Thu',type:'rest',label:'Kids day',sub:'Family movement'},
+      {day:'Fri',type:'lift',label:'Upper Focus',sub:'If the week allows a 3rd day',key:'small_upper'},
+      {day:'Sat',type:'cond',label:'Run/Play with Kids',sub:'Optional — hill or park',condKey:'small_run'},
+      {day:'Sun',type:'rest',label:'Rest',sub:'Recovery'},
+    ]},
+  mixed: {
+    sub:'Mixed — all sessions available, hit what the week allows',
+    days:[
+      {day:'Mon',type:'lift',label:'Lower Body',sub:'Squat strength',key:'big_lower'},
+      {day:'Tue',type:'lift',label:'Upper Push',sub:'Chest + shoulders',key:'big_push'},
+      {day:'Wed',type:'cond',label:'Hybrid / Run',sub:'Conditioning or run with kids',condKey:'big_hybrid'},
+      {day:'Thu',type:'lift',label:'Upper Pull',sub:'Back + biceps',key:'big_pull'},
+      {day:'Fri',type:'lift',label:'Full Body or Engine',sub:'Flex to the week',key:'small_full'},
+      {day:'Sat',type:'cond',label:'Run/Play',sub:'With kids if you have them',condKey:'small_run'},
+      {day:'Sun',type:'rest',label:'Rest',sub:'Recovery'},
+    ]},
+};
 
-;
-
-// ── WARMUP STEPS ──────────────────────────────────────────────────────────────
 const WARMUP_STEPS = [
   {name:'Jaw Check + Breath Reset',vol:'1 exhale',time:30,type:'Reset',cue:'<strong>Teeth apart.</strong> One long 8s exhale. Feel shoulders drop. Am I braced or clear? If braced — two more exhales.'},
   {name:'Foam Roll — IT Band + Glutes',vol:'30s/side',time:60,type:'DeFranco',cue:'IT band: side-lying, roll outer thigh. <strong>PAUSE on tight spots.</strong> Glutes: sit on roller, cross leg over. Uncomfortable = you need it.'},
@@ -835,6 +693,8 @@ const WARMUP_STEPS = [
   {name:'Tibialis Raises',vol:'2 × 12',time:30,type:'Corrective',cue:'<strong>LEFT ANKLE SPECIFIC.</strong> Heels on step or wall. Lift toes slowly — anterior shin fires. Do not skip.'},
   {name:'Serratus Wall Slides',vol:'8 reps',time:30,type:'Activation',cue:'Forearms on wall. Slide up — <strong>REACH at top, no shrug.</strong> Feel side ribs engage. Protects your neck during pressing.'},
   {name:'Chin Tucks',vol:'8–10 reps',time:20,type:'Corrective',cue:'<strong>1–2cm backward glide only.</strong> Deep neck flexors on. Tells suboccipitals it is safe to load.'},
+    {name:'HR Primer — Skips + High Knees',vol:'2 rounds',time:40,type:'Dynamic',cue:'<strong>NEW — raises heart rate.</strong> 30s skipping (rope or shadow) → 30s high knees. Get warm and breathing. Primes you for training AND builds the Hyrox engine.'},
+  {name:'HR Primer — Mountain Climbers + Groiners',vol:'2 rounds',time:40,type:'Dynamic',cue:'20 mountain climbers → 8 groiners. Sink the hips on the groiners — hip mobility plus HR. You should be sweating lightly now.'},
   {name:'Progressive Ramp Sets',vol:'2–3 sets',time:0,type:'Ramp',cue:'Bar → 60% × 5 → 75% × 3 → 85% × 1 → working weight. <strong>Each rep is a form check.</strong> Jaw soft. Ribs down.'},
 ];
 
@@ -851,17 +711,17 @@ const UPPER_WARMUP_STEPS = [
   {name:'Chin Tucks',vol:'10 reps',time:25,type:'Corrective',cue:'<strong>1–2cm backward glide. 10 reps.</strong> Deep cervical flexors before pressing — prevents neck compensation.'},
   {name:'Shoulder Circles',vol:'10 fwd + 10 back',time:30,type:'Dynamic',cue:'Large slow circles. Full joint range. Any restriction — move slower through that range.'},
   {name:'Overhead Wall Slides',vol:'8 reps',time:30,type:'Activation',cue:'Stand against wall. Forearms on wall, elbows 90°. <strong>Slide arms overhead — no shrug.</strong> Feel lower traps fire.'},
+    {name:'HR Primer — Arm Swings + Skips',vol:'2 rounds',time:40,type:'Dynamic',cue:'<strong>NEW — raises heart rate.</strong> 30s big arm swings/circles → 30s skipping. Warm the shoulders through range AND get the HR up before pressing.'},
   {name:'Spoto Press Ramp Sets',vol:'3 ramp sets',time:0,type:'Ramp',cue:'Bar × 8 → 50% × 5 → 70% × 3 → working weight. <strong>Each set: ribs down, jaw soft, right shoulder soft.</strong>'},
 ];
 
 const COND_WARMUP_STEPS = [
-  {name:'Jaw Check',vol:'1 exhale',time:20,type:'Reset',cue:'Quick. Teeth apart. One exhale. Jaw clenching during cardio = neck bracing during cardio.'},
-  {name:'Leg Swings — Front/Back',vol:'15/side',time:30,type:'Dynamic',cue:'Hold wall. Swing leg forward and back. Progressively bigger range. LEFT leg: notice if restricted.'},
-  {name:'Leg Swings — Side to Side',vol:'15/side',time:30,type:'Dynamic',cue:'Same position. Swing leg across body and out. Hip abductor and adductor opening.'},
-  {name:'Hip Circles',vol:'10 each direction',time:30,type:'Dynamic',cue:'Hands on hips. Large hip circles. 10 forward, 10 backward. Full hip joint lubrication.'},
-  {name:'Inchworm + Push-Up',vol:'8 reps',time:45,type:'Dynamic',cue:'Stand → hinge → walk hands to plank → push-up → walk back → stand. Full body. Temperature rising.'},
-  {name:'Groiners',vol:'10/side',time:30,type:'Dynamic',cue:'Push-up position → jump foot to outside of hand → sink hips → hold 2s → return. Makes you sweat.'},
-  {name:'High Knees',vol:'30s',time:30,type:'Dynamic',cue:'On spot. Drive knees up, arms pump. 30 seconds. HR up. Ready to go.'},
+  {name:'Jaw Check',vol:'1 exhale',time:20,type:'Reset',cue:'Teeth apart. One exhale. Jaw clenching during conditioning = neck bracing. Set it right first.'},
+  {name:'Leg Swings + Ankle Prep',vol:'15/side',time:40,type:'Corrective',cue:'Front/back and side leg swings. Then ankle circles + tib raises for the LEFT ankle. Prep the tendon before running or sled work.'},
+  {name:'Hip Circles + Groiners',vol:'10 each',time:40,type:'Dynamic',cue:'Hip circles then groiners — jump feet to hands, sink hips. Opens hips and starts the sweat.'},
+  {name:'HR Ramp — Skips',vol:'45s',time:45,type:'Dynamic',cue:'<strong>Skipping — rope or shadow.</strong> Light and springy. Calves and ankles wake up, HR climbs. Gentle on the ankle vs sprinting cold.'},
+  {name:'HR Ramp — High Knees + Butt Kicks',vol:'2×30s',time:60,type:'Dynamic',cue:'30s high knees → 30s butt kicks. Running muscles firing, HR up toward working level.'},
+  {name:'Build-Up Strides',vol:'3×40m',time:60,type:'Dynamic',cue:'3 strides building from jog to 80% — NOT sprint. Primes running mechanics and the nervous system. Stop before any ankle sharpness.'},
 ];
 
 const TYPE_COLORS = {Reset:'#f59e0b',Corrective:'#f87171',DeFranco:'#34d399',Dynamic:'#60a5fa',Activation:'#a78bfa',Ramp:'#7fa4c0'};
@@ -869,9 +729,9 @@ const TYPE_COLORS = {Reset:'#f59e0b',Corrective:'#f87171',DeFranco:'#34d399',Dyn
 // ── SYSTEM PROMPT ─────────────────────────────────────────────────────────────
 const SYSTEM_PROMPT = `You are Coach Squish — Adrian's personal strength and health coach built into the Burning off the Squishiness app.
 
-ADRIANPROFILE: 168cm, ~80kg, ~15% BF, target sub-10% BF. NZ-based father. Phase 3 recomposition block.
+ADRIANPROFILE: 168cm, ~80kg, ~15% BF, target sub-10% BF. NZ-based father. Phase A recomposition block.
 
-PHASE 3 RULES: Add 2.5kg to squat/Spoto when RPE ≤8. Add 5kg to paused deadlift when RPE ≤8. Spoto press: bar 2cm off chest — never touch chest if ribs flare. Conditioning 2–3x/week non-negotiable. Protein anchor 40g+ first meal.
+PHASE A RULES: Add 2.5kg to squat/Spoto when RPE ≤8. Add 5kg to paused deadlift when RPE ≤8. Spoto press: bar 2cm off chest — never touch chest if ribs flare. Conditioning 2–3x/week non-negotiable. Protein anchor 40g+ first meal.
 
 NECK/JAW: Right base of skull persistent tension — stress and jaw clenching driven. Green <3/10 train normal. Yellow 3–4 swap variation. Red 5+ remove pressing.
 
@@ -881,18 +741,64 @@ Keep responses concise — 2–4 sentences unless asked for more. You are mid-se
 
 // ── PHASES ────────────────────────────────────────────────────────────────────
 const PHASES = [
-  {weeks:'1–4',name:'Reset + Groove',status:'done',desc:'Calm system + perfect mechanics. RPE 7–8 cap. Deload week 4.'},
-  {weeks:'5–9',name:'Build',status:'done',desc:'Added load, Spoto press, paused deadlift. Body recomp started.'},
-  {weeks:'10–13',name:'Recomposition',status:'now',desc:'Leaner, stronger, fitter. Mechanical drops + supersets. Conditioning non-negotiable.',
+  {weeks:'1-8',name:'Phase A — Build & Base',status:'now',desc:'Muscle building is primary. Heavy strength + hypertrophy. Running introduced gently to protect the ankle — bike, hills, short intervals. Hyrox stations learned fresh (sled, carries, wall balls). This is where you add the most muscle.',
     unlocks:[
-      {ok:true,text:'Mechanical drop sets on all lower body'},
-      {ok:true,text:'Antagonist supersets throughout upper sessions'},
-      {ok:true,text:'True myo-rep on accessories'},
-      {ok:true,text:'Conditioning 2–3x/week — the recomp lever'},
-      {ok:false,text:'Still no heavy overhead barbell'},
+      {ok:true,text:'Strength focus — squat, bench, pull-up, RDL progressing'},
+      {ok:true,text:'Hyrox stations introduced: sled, carries, wall balls, lunges'},
+      {ok:true,text:'Running built through bike + hills — ankle-protective'},
+      {ok:true,text:'Left ankle calf raise every lower session'},
+      {ok:false,text:'Not yet: long runs or full race simulations'},
     ]},
-  {weeks:'14–17',name:'Strength Peak',status:'next',desc:'Heavier mains, leaner body, peak conditioning.'},
+  {weeks:'9-16',name:'Phase B — Lean & Bridge',status:'next',desc:'Keep the muscle, get leaner. Introduce hybrid work — runs paired with stations (compromised running). Running volume climbs carefully. Nutrition deficit tightens for fat loss.',
+    unlocks:[
+      {ok:false,text:'Compromised running: run straight after station work'},
+      {ok:false,text:'Running volume climbs — flat distance added to hills'},
+      {ok:false,text:'Leaner: nutrition shifts toward fat loss'},
+      {ok:false,text:'Station endurance under fatigue'},
+    ]},
+  {weeks:'17-24',name:'Phase C — Hyrox Sharpen',status:'future',desc:'Race-specific. Full compromised workouts, station practice under fatigue, longer runs, race simulations. Volume shifts to the event. Taper into race day.',
+    unlocks:[
+      {ok:false,text:'Full Hyrox race simulations (doubles format)'},
+      {ok:false,text:'Longer runs — building to 8km capacity'},
+      {ok:false,text:'Pacing and transition practice'},
+      {ok:false,text:'Taper and peak for race day'},
+    ]},
 ];
+
+
+// ── NECK & MOBILITY SUPPORT ───────────────────────────────────────────────────
+const MOBILITY = {
+  daily: [
+    {name:'Suboccipital Ball Release',time:'90s',when:'Before bed — every night',type:'Release',
+     cue:'Lie on your back. Place a lacrosse ball (or tennis ball) at the base of your skull, where skull meets neck. Let gravity press your head into it. NO rolling — just sustained pressure on the tight spots. Breathe slowly. This directly decompresses the muscles that accumulate your stress tension.'},
+    {name:'Jaw Unclench Check',time:'Hourly',when:'Through the day — set reminders',type:'Reset',
+     cue:'Teeth apart. Tongue soft on the roof of your mouth. One long exhale. Shoulders drop away from ears. This interrupts the cortisol-tension loop before it compounds. Your jaw is the barometer — if it is clenched, your neck is next.'},
+    {name:'Levator Scapulae Stretch',time:'30s/side',when:'Morning + evening',type:'Stretch',
+     cue:'Sit tall. Turn head 45° toward armpit, look down into the pocket. Gentle hand on back of head for light overpressure. This is the exact muscle that makes you want to lift your chin and pop the shoulder. Stretch it directly instead.'},
+    {name:'Upper Trap Release',time:'45s/side',when:'When shoulders creep up',type:'Release',
+     cue:'Sit on hand to anchor the shoulder down. Tilt ear to opposite shoulder. Breathe into the stretch. The upper traps pull on the base of the skull when tight — releasing them relieves the suboccipital pressure.'},
+  ],
+  reset: [
+    {name:'Chin Tucks',time:'10 reps',type:'Activation',
+     cue:'1-2cm backward glide, like making a double chin. Deep neck flexors switch on. This retrains the neck to hold position without the extensors bracing — which is your pain pattern.'},
+    {name:'Wall Angels',time:'10 reps',type:'Mobility',
+     cue:'Back against wall, arms in goalpost. Slide up and down keeping forearms on the wall. Opens the thoracic and trains the shoulder to move without the neck compensating.'},
+    {name:'Thread the Needle',time:'8/side',type:'Mobility',
+     cue:'On all fours. Reach one arm under the body, rotate, then reach up to the sky. Opens thoracic rotation — the stiffness here is why the neck overworks.'},
+    {name:'90/90 Breathing',time:'5 breaths',type:'Reset',
+     cue:'Lie on back, feet on a wall or chair, knees 90°. Long exhale until lower ribs drop. This resets the ribcage and downshifts your nervous system out of the braced state.'},
+  ],
+  understanding: [
+    {q:'Why do I want to lift my chin and pop my shoulder?',
+     a:'When your upper traps and levator scapulae get tight from stress, they strain the muscles at the base of your skull. Lifting your chin decompresses them and the shoulder pop is the levator or AC joint releasing. The relief is real but temporary — you are treating the symptom, not the cause. The daily release work addresses the cause so the urge fades.'},
+    {q:'Why is it worse right now?',
+     a:'Stress — particularly the money stress you mentioned — keeps your nervous system braced. Chronic cortisol makes you unconsciously hunch and clench, and the tension accumulates in exactly these muscles. This is not structural damage. It is a stress-tension pattern, which means it responds well to the release work plus managing the stress load.'},
+    {q:'What actually fixes it?',
+     a:'Three things together: (1) Daily suboccipital and trap release to discharge accumulated tension. (2) The corrective activation in your warm-ups to retrain proper neck position. (3) Magnesium glycinate 400mg before bed to reduce the physical cortisol effect on the muscles and improve sleep. Consistency over weeks, not one big session.'},
+    {q:'Should I keep cracking my neck?',
+     a:'The relief is real but frequent self-manipulation can make the joints looser over time and reinforce the cycle. Replace the crack with the suboccipital ball release — it gives similar relief without the downside. When you feel the urge, do the ball release or a levator stretch instead.'},
+  ]
+};
 
 // ── PIN LOGIC ─────────────────────────────────────────────────────────────────
 const MEM = {};
@@ -985,8 +891,8 @@ function unlock(){
 // ── APP INIT ──────────────────────────────────────────────────────────────────
 function initApp(){
   // Set default session key based on week type
-  if(S.weekType==='kid') S.sessionKey='kid_mon';
-  else S.sessionKey='mon';
+  if(S.weekType==='kid') S.sessionKey='small_full';
+  else S.sessionKey='big_lower';
   
   updateGreeting();
   updateTodayCard();
@@ -994,14 +900,27 @@ function initApp(){
   renderSession();
   renderTrack();
   renderRoadmap();
+  renderMobility();
 }
 
 function updateTodayCard(){
-  const wo = WORKOUTS[S.sessionKey] || WORKOUTS.mon;
+  // Pull today's actual session from the current week plan
+  const plan = WEEK_PLANS[S.weekType];
+  const todayDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()];
+  const todaySession = plan.days.find(d => d.day === todayDay);
   const ttEl = document.getElementById('today-title');
   const tsEl = document.getElementById('today-sub');
-  if(ttEl) ttEl.textContent = wo.title;
-  if(tsEl) tsEl.textContent = wo.sub;
+  if(todaySession){
+    if(ttEl) ttEl.textContent = todaySession.label;
+    if(tsEl) tsEl.textContent = todaySession.sub;
+    // Set the session key so tapping the card opens the right session
+    if(todaySession.key) S.sessionKey = todaySession.key;
+    else if(todaySession.condKey) S.sessionKey = todaySession.condKey;
+  } else {
+    const wo = WORKOUTS[S.sessionKey] || WORKOUTS.big_lower;
+    if(ttEl) ttEl.textContent = wo.title;
+    if(tsEl) tsEl.textContent = wo.sub;
+  }
 }
 
 function updateGreeting(){
@@ -1017,9 +936,8 @@ function updateGreeting(){
 function setWeek(type){
   S.weekType=type;
   // Reset session key for new week type
-  if(type==='kid') S.sessionKey='kid_mon';
-  else if(type==='mixed') S.sessionKey='mon';
-  else S.sessionKey='mon';
+  if(type==='kid') S.sessionKey='small_full';
+  else S.sessionKey='big_lower';
   
   ['kid','free','mixed'].forEach(t=>{
     document.getElementById('wk-'+t).classList.toggle('active',t===type);
@@ -1070,6 +988,12 @@ function showTab(name){
   }
   const nb=document.getElementById('nav-'+name);
   if(nb)nb.classList.add('active');
+  // Refresh dynamic screens on show so week changes reflect
+  if(name==='session') renderSession();
+  if(name==='track') renderTrack();
+  if(name==='mobility') renderMobility();
+  if(name==='roadmap') renderRoadmap();
+  if(name==='home'){ renderWeekPlan(); updateTodayCard(); }
 }
 
 function goHome(){showTab('home');}
@@ -1082,7 +1006,7 @@ function startWarmup(){
 
 // ── WARMUP ────────────────────────────────────────────────────────────────────
 function getWarmupSteps(){
-  const key = S.sessionKey || 'mon';
+  const key = S.sessionKey || 'big_lower';
   const wo = WORKOUTS[key];
   const wtype = wo ? wo.type : 'lower';
   if(wtype === 'cond') return COND_WARMUP_STEPS;
@@ -1119,55 +1043,45 @@ function toggleWu(i){
 
 // ── SESSION ───────────────────────────────────────────────────────────────────
 function renderSession(){
-  const dayMap={0:'mon',1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'fri'};
+  const dayMap={0:'big_lower',1:'big_lower',2:'big_push',3:'big_hybrid',4:'big_pull',5:'big_optional',6:'big_lower'};
   if(!S.sessionKey)S.sessionKey=dayMap[new Date().getDay()]||'mon';
   
-  const workout=WORKOUTS[S.sessionKey]||WORKOUTS.mon;
+  const workout=WORKOUTS[S.sessionKey]||WORKOUTS.big_lower;
   document.getElementById('sess-title').textContent=workout.title;
-  document.getElementById('sess-sub').textContent='Phase 3 · '+workout.sub;
+  document.getElementById('sess-sub').textContent='Phase A · '+workout.sub;
   
   // Tabs — change based on week type
   let tabs;
   if(S.weekType==='kid'){
     tabs=[
-      {key:'kid_mon',label:'Lower + Push'},
-      {key:'kid_wed',label:'Hinge + Pull'},
-      {key:'kid_fri',label:'Upper Push/Pull'},
-      {key:'cond_week1',label:'Wk1 Zone 2'},
-      {key:'cond_week2',label:'Wk2 Threshold'},
-      {key:'cond_week3',label:'Wk3 Intervals'},
-      {key:'cond_week4',label:'Wk4 Mixed'},
-      {key:'cond_sled',label:'Sled'},
-      {key:'cond_carry',label:'Carry Flow'},
+      {key:'small_full',label:'Full Body'},
+      {key:'small_upper',label:'Upper'},
+      {key:'small_run',label:'Run w/ Kids'},
+      {key:'cond_sled',label:'Sled + Carry'},
+      {key:'cond_zone2',label:'Zone 2'},
       {key:'cond_yoga',label:'Recovery'},
     ];
   } else if(S.weekType==='mixed'){
     tabs=[
-      {key:'kid_mon',label:'Lower + Push'},
-      {key:'tue',label:'Upper Push'},
-      {key:'thu',label:'Upper Pull'},
-      {key:'fri',label:'Lower Hinge'},
-      {key:'kid_fri',label:'Upper Push/Pull'},
-      {key:'cond_week1',label:'Wk1 Zone 2'},
-      {key:'cond_week2',label:'Wk2 Threshold'},
-      {key:'cond_week3',label:'Wk3 Intervals'},
-      {key:'cond_week4',label:'Wk4 Mixed'},
-      {key:'cond_sled',label:'Sled'},
-      {key:'cond_carry',label:'Carry Flow'},
+      {key:'big_lower',label:'Lower'},
+      {key:'big_push',label:'Push'},
+      {key:'big_pull',label:'Pull'},
+      {key:'big_hybrid',label:'Hybrid'},
+      {key:'small_full',label:'Full Body'},
+      {key:'small_run',label:'Run w/ Kids'},
+      {key:'cond_sled',label:'Sled + Carry'},
+      {key:'cond_zone2',label:'Zone 2'},
       {key:'cond_yoga',label:'Recovery'},
     ];
   } else {
     tabs=[
-      {key:'mon',label:'Lower Body'},
-      {key:'tue',label:'Upper Push'},
-      {key:'thu',label:'Upper Pull'},
-      {key:'fri',label:'Lower Hinge'},
-      {key:'cond_week1',label:'Wk1 Zone 2'},
-      {key:'cond_week2',label:'Wk2 Threshold'},
-      {key:'cond_week3',label:'Wk3 Intervals'},
-      {key:'cond_week4',label:'Wk4 Mixed'},
-      {key:'cond_sled',label:'Sled'},
-      {key:'cond_carry',label:'Carry Flow'},
+      {key:'big_lower',label:'Lower'},
+      {key:'big_push',label:'Push'},
+      {key:'big_pull',label:'Pull'},
+      {key:'big_hybrid',label:'Hybrid'},
+      {key:'big_optional',label:'Engine'},
+      {key:'cond_sled',label:'Sled + Carry'},
+      {key:'cond_zone2',label:'Zone 2'},
       {key:'cond_yoga',label:'Recovery'},
     ];
   }
@@ -1179,7 +1093,7 @@ function renderSession(){
   const isCond = workout.type === 'cond';
   const bannerText = isCond
     ? (workout.note || 'Conditioning session — warming up first.')
-    : '⚡ Phase 3 RECOMP — Mechanical drops + supersets. Add load when RPE ≤8.';
+    : '⚡ Phase A BUILD & BASE — Mechanical drops + supersets. Add load when RPE ≤8.';
   const bannerColor = isCond ? 'rgba(245,158,11,.08)' : 'rgba(45,212,191,.08)';
   const bannerBorder = isCond ? 'rgba(245,158,11,.3)' : 'rgba(45,212,191,.2)';
   const bannerTextColor = isCond ? 'var(--yellow)' : 'var(--accent)';
@@ -1297,15 +1211,90 @@ function renderTrack(){
       </div>
     </div>
 
-    <div class="section-label">Phase 3 — Week 10</div>
+    <div class="section-label">Phase A — Week 1</div>
     <div class="card">
-      <h3 style="color:var(--accent)">Recomposition Block</h3>
-      <p>4 weeks of mechanical drops, antagonist supersets, and structured conditioning. Leaner + stronger + fitter by the end.</p>
+      <h3 style="color:var(--accent)">Build & Base Block</h3>
+      <p>8 weeks building muscle and the Hyrox base. Strength up, stations learned, ankle rebuilt for running. Muscle first, then we lean and sharpen.</p>
     </div>
     <div style="height:20px"></div>`;
 }
 
 // ── ROADMAP ───────────────────────────────────────────────────────────────────
+
+function renderMobility(){
+  const container = document.getElementById('mobility-content');
+  if(!container) return;
+  const typeColors = {Release:'#f87171',Reset:'#f59e0b',Stretch:'#34d399',Activation:'#a78bfa',Mobility:'#60a5fa'};
+  
+  let html = '';
+  
+  // Understanding section first - the "why"
+  html += '<div class="section-label">Understanding Your Neck</div>';
+  MOBILITY.understanding.forEach((item,i) => {
+    html += `<div class="ex-card">
+      <div class="ex-head" onclick="toggleMob('u${i}')">
+        <div class="ex-name" style="font-size:14px">${item.q}</div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" style="flex-shrink:0;margin-left:8px"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="ex-body" id="mob-u${i}">
+        <div class="ex-cue">${item.a}</div>
+      </div>
+    </div>`;
+  });
+  
+  // Daily protocol
+  html += '<div class="section-label">Daily Protocol — Do These Every Day</div>';
+  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.2);border-radius:8px;font-size:12px;color:var(--accent)">These 4 are your non-negotiables. The suboccipital ball release before bed is the single most important one.</div>';
+  MOBILITY.daily.forEach((item,i) => {
+    const col = typeColors[item.type] || '#7fa4c0';
+    html += `<div class="ex-card">
+      <div class="ex-head" onclick="toggleMob('d${i}')">
+        <div style="flex:1">
+          <div class="ex-name">${item.name}</div>
+          <div class="ex-pills">
+            <span class="pill">${item.time}</span>
+            <span class="pill grey">${item.when}</span>
+          </div>
+        </div>
+        <div class="wu-type-badge" style="background:${col}22;color:${col};align-self:flex-start">${item.type}</div>
+      </div>
+      <div class="ex-body" id="mob-d${i}">
+        <div class="ex-cue">${item.cue}</div>
+      </div>
+    </div>`;
+  });
+  
+  // Reset routine
+  html += '<div class="section-label">Neck Reset Routine — When It Flares</div>';
+  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-size:12px;color:var(--yellow)">When the neck is tight or you feel the urge to crack it — run through these instead. 5 minutes.</div>';
+  MOBILITY.reset.forEach((item,i) => {
+    const col = typeColors[item.type] || '#7fa4c0';
+    html += `<div class="ex-card">
+      <div class="ex-head" onclick="toggleMob('r${i}')">
+        <div style="flex:1">
+          <div class="ex-name">${item.name}</div>
+          <div class="ex-pills"><span class="pill">${item.time}</span></div>
+        </div>
+        <div class="wu-type-badge" style="background:${col}22;color:${col};align-self:flex-start">${item.type}</div>
+      </div>
+      <div class="ex-body" id="mob-r${i}">
+        <div class="ex-cue">${item.cue}</div>
+      </div>
+    </div>`;
+  });
+  
+  html += '<div style="height:24px"></div>';
+  container.innerHTML = html;
+}
+
+function toggleMob(id){
+  const el = document.getElementById('mob-'+id);
+  if(!el) return;
+  const open = el.classList.contains('open');
+  document.querySelectorAll('.ex-body').forEach(e=>e.classList.remove('open'));
+  if(!open) el.classList.add('open');
+}
+
 function renderRoadmap(){
   const html=PHASES.map(p=>{
     const cls=p.status==='now'?'phase-card phase-now':p.status==='done'?'phase-card phase-done':'phase-card';
