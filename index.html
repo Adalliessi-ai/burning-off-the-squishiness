@@ -48,8 +48,8 @@
   --accent-edge:rgba(164,235,63,.28);
 
   --text:#FFFFFF;
-  --text2:#8D8B8E;
-  --text3:#625F64;
+  --text2:#B7B4BC;
+  --text3:#8A878F;
 
   --green:#A4EB3F;
   --yellow:#F5C33F;
@@ -66,7 +66,7 @@ html,body{height:100%;}
 body{
   background:var(--bg); color:var(--text);
   font-family:var(--font);
-  font-size:15px; line-height:1.45;
+  font-size:15.5px; line-height:1.48;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   overscroll-behavior:none;
 }
@@ -122,6 +122,28 @@ button,input{font-family:inherit;}
 .wk-opt.active{background:var(--accent);color:var(--accent-ink);}
 .wk-opt-label{font-size:9.5px;font-weight:500;opacity:.68;margin-top:1px;}
 
+/* ── WEEK CHIP + READINESS LINE ─────────────── */
+.wk-chip{
+  background:var(--surface2);border:1px solid var(--border2);color:var(--text2);
+  font-size:11.5px;font-weight:700;padding:8px 13px;border-radius:var(--r-pill);
+  white-space:nowrap;cursor:pointer;align-self:flex-start;margin-top:2px;
+}
+.week-opts{padding:4px 16px 2px;}
+.ready-line{
+  display:flex;align-items:center;flex-wrap:wrap;gap:5px;
+  margin:12px 16px 2px;padding:11px 15px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-pill);
+  font-size:12.5px;color:var(--text2);font-weight:500;
+}
+.ready-line b{color:var(--text);font-weight:700;}
+.ready-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-right:4px;}
+.ready-sep{color:var(--text3);}
+.wu-info{
+  background:var(--surface2);border:0;color:var(--text3);
+  font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  padding:6px 11px;border-radius:var(--r-pill);cursor:pointer;flex-shrink:0;
+}
+
 /* ── STAT TILES ────────────────────────────── */
 .status-row{display:flex;gap:10px;padding:14px 16px 2px;}
 .stat-card{
@@ -130,7 +152,7 @@ button,input{font-family:inherit;}
 }
 .stat-val{font-size:24px;font-weight:700;letter-spacing:-.6px;line-height:1;}
 .stat-val.green{color:var(--accent);}
-.stat-val.amber{color:var(--yellow);}
+.stat-val.amber{color:var(--text);}
 .stat-lbl{font-size:10.5px;color:var(--text3);margin-top:6px;font-weight:500;}
 
 /* ── HERO CARD ─────────────────────────────── */
@@ -171,7 +193,7 @@ button,input{font-family:inherit;}
 }
 .day-dot{width:8px;height:8px;border-radius:50%;background:var(--surface3);flex-shrink:0;}
 .day-dot.dot-lift{background:var(--accent);box-shadow:0 0 0 4px var(--accent-wash);}
-.day-dot.dot-cond{background:var(--yellow);}
+.day-dot.dot-cond{background:var(--accent);opacity:.45;}
 .day-dot.dot-rest{background:var(--surface3);}
 .day-session .today-tag{
   display:inline-block;margin:0 0 0 8px;padding:3px 9px;vertical-align:middle;
@@ -217,7 +239,7 @@ button,input{font-family:inherit;}
   font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:var(--r-pill);
   background:var(--surface2);color:var(--text);letter-spacing:-.1px;
 }
-.pill.amber{background:var(--surface2);color:var(--yellow);}
+.pill.amber{background:var(--surface2);color:var(--text2);}
 .pill.grey{background:var(--surface2);color:var(--text3);}
 .pill.green{background:var(--accent);color:var(--accent-ink);}
 
@@ -349,18 +371,18 @@ button,input{font-family:inherit;}
 }
 .nav.tucked{transform:translateX(-50%) translateY(160%);opacity:0;pointer-events:none;}
 .nav-btn{
-  height:50px;width:48px;border:0;background:transparent;cursor:pointer;
-  border-radius:var(--r-pill);color:var(--text2);
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  font-size:0;font-weight:700;letter-spacing:-.2px;overflow:hidden;
-  transition:width .3s cubic-bezier(.34,1.3,.5,1),background .22s,color .22s,font-size .22s;
+  height:46px;width:54px;border:0;background:transparent;cursor:pointer;
+  border-radius:20px;color:var(--text2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  font-size:9px;font-weight:600;letter-spacing:.1px;overflow:hidden;
+  transition:background .22s,color .22s;
 }
 .nav-btn:active{transform:scale(.94);}
 .nav-btn.active{
-  width:auto;padding:0 20px 0 16px;font-size:14px;
+  flex-direction:row;width:auto;padding:0 17px 0 13px;height:46px;gap:7px;font-size:13.5px;font-weight:700;
   background:var(--accent);color:var(--accent-ink);
 }
-.nav-btn svg{width:22px;height:22px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+.nav-btn svg{width:21px;height:21px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
 
 /* ── CHAT ──────────────────────────────────── */
 #screen-coach{flex-direction:column;padding-bottom:0;}
@@ -652,27 +674,26 @@ button,input{font-family:inherit;}
     <div id="screen-home" class="screen active">
       <div class="brand-row">
         <div>
-          <div class="brand-text">Burning off the squishiness 🔥</div>
+          <div class="brand-text" id="home-date">Saturday · 75 days to 4 Feb</div>
           <div class="brand-name" id="home-greeting">Good morning, Adrian</div>
         </div>
-        <div class="phase-pill" id="phase-pill">BUILD</div>
+        <div class="wk-chip" id="wk-chip" onclick="toggleWeekOpts()"><span id="wk-chip-label">Big week</span> <span style="opacity:.55">▾</span></div>
       </div>
-      <div id="home-date" style="font-size:12px;color:var(--text3);padding:6px 16px 0">Monday · Big Week</div>
 
-      <div style="padding:8px 16px 4px">
-        <div style="font-size:10px;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px">This week</div>
+      <div class="week-opts" id="week-opts" style="display:none">
         <div class="week-toggle">
-          <div class="wk-opt" id="wk-kid" onclick="setWeek('kid')"><div>Short Week</div><div class="wk-opt-label">Kids time 👨‍👧‍👦</div></div>
-          <div class="wk-opt active" id="wk-free" onclick="setWeek('free')"><div>Big Week</div><div class="wk-opt-label">Limited kids 💪</div></div>
-          <div class="wk-opt" id="wk-mixed" onclick="setWeek('mixed')"><div>Mixed</div><div class="wk-opt-label">Who knows 🤷</div></div>
+          <div class="wk-opt" id="wk-kid" onclick="setWeek('kid')"><div>Short Week</div><div class="wk-opt-label">Kids Wed–Sun</div></div>
+          <div class="wk-opt active" id="wk-free" onclick="setWeek('free')"><div>Big Week</div><div class="wk-opt-label">Limited kids</div></div>
+          <div class="wk-opt" id="wk-mixed" onclick="setWeek('mixed')"><div>Mixed</div><div class="wk-opt-label">Flexible</div></div>
         </div>
-        <div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:4px" id="week-sub">Limited kids — big training week, Mon to Fri</div>
+        <div style="font-size:11.5px;color:var(--text3);margin-top:6px" id="week-sub">Limited kids — big training week, Mon to Fri</div>
       </div>
 
-      <div class="status-row">
-        <div class="stat-card"><div class="stat-val green" id="stat-sleep">7.2</div><div class="stat-lbl">Sleep hrs</div></div>
-        <div class="stat-card"><div class="stat-val amber" id="stat-neck">3</div><div class="stat-lbl">Neck /10</div></div>
-        <div class="stat-card"><div class="stat-val amber" id="stat-jaw">Med</div><div class="stat-lbl">Jaw</div></div>
+      <div class="ready-line" id="ready-line">
+        <span class="ready-dot"></span><b>Ready to train</b>
+        <span class="ready-sep">·</span>Sleep <b>7.2</b>
+        <span class="ready-sep">·</span>Neck <b>3</b>
+        <span class="ready-sep">·</span>Jaw <b>med</b>
       </div>
 
       <div class="today-card" onclick="startToday()">
@@ -702,7 +723,7 @@ button,input{font-family:inherit;}
           <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span><span>Supersets and finishers stay — they are fitness now, not fat loss</span></div>
           <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span><span>Running is back: Stage 3, the app keeps you off back-to-back days</span></div>
           <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--green)">✓</span><span>ISO calf holds + push-up plus daily — five minutes</span></div>
-          <div style="font-size:13px;color:var(--yellow);display:flex;gap:8px"><span style="color:var(--yellow)">⚠</span><span>Short on sleep or food? The finisher shrinks first, never the lifting</span></div>
+          <div style="font-size:13px;color:var(--text2);display:flex;gap:8px"><span style="color:var(--red)">⚠</span><span>Short on sleep or food? The finisher shrinks first, never the lifting</span></div>
           <div style="font-size:13px;color:var(--red);display:flex;gap:8px"><span style="color:var(--red)">✗</span><span>Do not chase the scale — faster than 0.35kg a week is fat, not muscle</span></div>
         </div>
       </div>
@@ -1108,15 +1129,16 @@ const WEEK_PLANS = {
       {day:'Sun',type:'rest',label:'Rest',sub:'Walk + mobility'},
     ]},
   kid: {
-    sub:'Small Week \u2014 3 sessions around the kids',
+    sub:'Short Week \u2014 your 3-session minimum. A complete week, not a reduced one.',
+    med:true,
     days:[
-      {day:'Mon',type:'lift',label:'Full Body A \u2014 Push',sub:'The priority session',key:'full_a'},
-      {day:'Tue',type:'cond',label:'Zone 2 or Recovery',sub:'Easy bike, walk or yoga',condKey:'cond_zone2'},
-      {day:'Wed',type:'rest',label:'Kids arrive',sub:'Walk with them if you can'},
-      {day:'Thu',type:'rest',label:'Kids day',sub:'Family movement'},
-      {day:'Fri',type:'lift',label:'Full Body B \u2014 Pull',sub:'Back, hamstrings, arms',key:'full_b'},
-      {day:'Sat',type:'cond',label:'\ud83d\udd25 Saturday Engine',sub:'Scaled \u2014 3 rounds',condKey:'engine_sat'},
-      {day:'Sun',type:'cond',label:'Walk / Mobility',sub:'Hilly walk with the kids',condKey:'cond_yoga'},
+      {day:'Mon',type:'lift',label:'Full Body A \u2014 Push',sub:'Priority 1 \u2014 hit this first',key:'full_a'},
+      {day:'Tue',type:'lift',label:'Full Body B \u2014 Pull',sub:'Priority 2 \u2014 back, hamstrings, arms',key:'full_b'},
+      {day:'Wed',type:'cond',label:'\ud83d\udd25 Engine or Zone 2',sub:'Priority 3 \u2014 in before the kids land',condKey:'engine_sat'},
+      {day:'Thu',type:'rest',label:'Kids',sub:'Walk or play with them'},
+      {day:'Fri',type:'rest',label:'Kids',sub:'Family movement counts'},
+      {day:'Sat',type:'rest',label:'Kids',sub:'Hilly walk together'},
+      {day:'Sun',type:'rest',label:'Kids',sub:'Rest + five minutes of calf work'},
     ]},
   mixed: {
     sub:'Mixed \u2014 flex to whatever the week gives you',
@@ -1183,7 +1205,7 @@ const COND_WARMUP_STEPS = [
   {name:'Progressive Calf Hops (RUN DAYS ONLY)',vol:'2\u00d710',time:60,type:'Dynamic',cue:'<strong>ONLY once running has been cleared.</strong> Small double-leg hops on the spot, soft landings. Preps the tendon for impact. Skip entirely during the repair block.'},
 ];
 
-const TYPE_COLORS = {Reset:'#F5C33F',Corrective:'#FF6B5C',DeFranco:'#A4EB3F',Dynamic:'#6FA8FF',Activation:'#B98BFA',Ramp:'#8D8B8E'};
+const TYPE_COLORS = {Reset:'#8A878F',Corrective:'#FFFFFF',DeFranco:'#8A878F',Dynamic:'#8A878F',Activation:'#8A878F',Ramp:'#8A878F'};
 
 // ── SYSTEM PROMPT ─────────────────────────────────────────────────────────────
 const SYSTEM_PROMPT = `You are Coach Squish — Adrian's personal strength and health coach inside the Burning off the Squishiness app. Calm, direct, practical. No clichés.
@@ -1633,8 +1655,14 @@ function updateGreeting(){
   const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const wl=S.weekType==='free'?'Big Week':S.weekType==='kid'?'Short Week':'Mixed Week';
   const dd=daysToFeb4();
-  document.getElementById('home-date').textContent=days[new Date().getDay()]+' · '+wl+(dd>0?' · '+dd+' days to 4 Feb':'');
+  document.getElementById('home-date').textContent=days[new Date().getDay()]+(dd>0?' · '+dd+' days to 4 Feb':'');
+  const wc=document.getElementById('wk-chip-label'); if(wc) wc.textContent=wl;
   const pp=document.getElementById('phase-pill'); if(pp) pp.textContent=getBlockInfo().pill;
+}
+
+function toggleWeekOpts(){
+  const el=document.getElementById('week-opts'); if(!el) return;
+  el.style.display = el.style.display==='none' ? 'block' : 'none';
 }
 
 function setWeek(type){
@@ -1646,9 +1674,12 @@ function setWeek(type){
   ['kid','free','mixed'].forEach(t=>{
     document.getElementById('wk-'+t).classList.toggle('active',t===type);
   });
-  const subs={free:'Limited kids — big training week, Mon to Fri',kid:'Kids time — 3 sessions around the chaos',mixed:'All sessions available — hit 3, flex with the week'};
+  const subs={free:'Limited kids — big training week, Mon to Fri',kid:'Kids Wed–Sun — 3 sessions Mon to Wed, then family',mixed:'All sessions available — hit 3, flex with the week'};
   document.getElementById('week-sub').textContent=subs[type];
-  
+  const wl=type==='free'?'Big week':type==='kid'?'Short week':'Mixed week';
+  const wc=document.getElementById('wk-chip-label'); if(wc) wc.textContent=wl;
+  const wo=document.getElementById('week-opts'); if(wo) wo.style.display='none';
+
   // Update today's session card
   updateTodayCard();
   if(!S.sessionKey) S.sessionKey = (type==='kid') ? 'full_a' : 'upper_a';
@@ -1678,7 +1709,8 @@ function renderWeekPlan(){
       ${action}
     </div>`;
   }).join('');
-  document.getElementById('week-plan').innerHTML=html;
+  const med = plan.med ? '<div style="font-size:12px;color:var(--text2);line-height:1.5;padding:4px 4px 12px;border-bottom:1px solid var(--border);margin-bottom:6px"><b style="color:var(--accent)">3 sessions is the whole job this week.</b> Front-loaded Mon–Wed so the kids don’t cost you the week. Hit these three and you’ve progressed — the rest is family.</div>' : '';
+  document.getElementById('week-plan').innerHTML=med+html;
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
@@ -1805,17 +1837,18 @@ function getWarmupSteps(){
 function renderWarmup(){
   const steps=getWarmupSteps();
   const lbl=document.getElementById('wu-label');
-  if(lbl) lbl.textContent='DeFranco Hybrid · '+steps.length+' steps · tap the number to tick it off';
+  if(lbl) lbl.textContent='DeFranco Hybrid · '+steps.length+' steps · tap a step to tick it · Cue for how-to';
   const html=steps.map((s,i)=>{
     const col=TYPE_COLORS[s.type]||'#8D8B8E';
     const done=S.wuDone[S.sessionKey+'_'+i]?' ticked':'';
-    return `<div class="wu-step${done}" id="wu-${i}" onclick="toggleWu(${i})">
+    return `<div class="wu-step${done}" id="wu-${i}" onclick="tickWu(${i},event)">
       <div class="wu-step-top">
-        <div class="wu-num" onclick="tickWu(${i},event)">${S.wuDone[S.sessionKey+'_'+i]?'\u2713':(i+1)}</div>
+        <div class="wu-num">${S.wuDone[S.sessionKey+'_'+i]?'\u2713':(i+1)}</div>
         <div style="flex:1">
           <div class="wu-step-name">${s.name}</div>
           <div class="wu-step-meta">${s.vol}${s.time?' · ~'+s.time+'s':''}</div>
         </div>
+        <button class="wu-info" onclick="toggleWu(${i},event)">Cue</button>
         <div class="wu-type-badge" style="background:var(--surface2);color:${col}">${s.type}</div>
       </div>
       <div class="wu-cue">${s.cue}</div>
@@ -1826,7 +1859,8 @@ function renderWarmup(){
   updateTrainChrome();
 }
 
-function toggleWu(i){
+function toggleWu(i,ev){
+  if(ev && ev.stopPropagation) ev.stopPropagation();
   const el=document.getElementById('wu-'+i);
   const isOpen=el.classList.contains('open');
   document.querySelectorAll('.wu-step').forEach(s=>s.classList.remove('open'));
@@ -2349,17 +2383,23 @@ function fuelWeigh(){
   fuelSave(); renderFuel(); renderFuelCard(); fuelToast('Weigh-in saved');
 }
 function weightTrend(){
-  const f=fuelLoad(); const b=new Date();
-  const win=(x,y)=>{ let s=0,n=0; for(let i=x;i<=y;i++){ const v=f.weights[dayKey(new Date(b.getFullYear(),b.getMonth(),b.getDate()-i))]; if(v){ s+=v; n++; } } return n?{avg:s/n,n}:null; };
-  const cur=win(0,6), prev=win(7,13);
-  return {cur, prev, delta:(cur && prev && cur.n>=3 && prev.n>=3) ? cur.avg-prev.avg : null};
+  // One weigh-in a week. Compare the latest against the previous one (≥4 days apart),
+  // normalised to kg/week.
+  const f=fuelLoad();
+  const entries=Object.keys(f.weights).map(k=>({d:new Date(k+'T00:00:00'),w:f.weights[k]}))
+    .filter(e=>!isNaN(+e.d)).sort((a,b)=>b.d-a.d);
+  if(!entries.length) return {cur:null, prev:null, perWk:null, gap:null, delta:null};
+  const cur=entries[0];
+  const prev=entries.find(e=>(cur.d-e.d)/864e5>=4);
+  let perWk=null, gap=null, delta=null;
+  if(prev){ gap=Math.round((cur.d-prev.d)/864e5); delta=cur.w-prev.w; perWk=delta*7/gap; }
+  return {cur, prev, perWk, gap, delta};
 }
 function fuelVerdict(){
   const f=fuelLoad(); const t=weightTrend();
-  if(t.delta===null){
-    return {cls:'wait', adj:0, msg:'Needs 3+ weigh-ins in each of the last two weeks to read a trend — '+(t.cur?t.cur.n:0)+' this week, '+(t.prev?t.prev.n:0)+' last week.'};
-  }
-  const d=t.delta, s=(d>=0?'+':'')+d.toFixed(2)+'kg/wk';
+  if(!t.cur) return {cls:'wait', adj:0, msg:'Log your first weigh-in to start the trend.'};
+  if(t.perWk===null) return {cls:'wait', adj:0, msg:'One weigh-in in. Weigh in again next week — same morning — to read the trend.'};
+  const d=t.perWk, s=(d>=0?'+':'')+d.toFixed(2)+'kg/wk';
   let v;
   if(d>0.35)       v={cls:'warn', adj:-150, msg:'Gaining fast ('+s+'). At that pace most of it is fat — drop 150 kcal.'};
   else if(d>=0.1)  v={cls:'ok',   adj:0,    msg:'On target ('+s+'). Hold everything.'};
@@ -2715,9 +2755,9 @@ function renderFuel(){
     : '<div class="fuel-empty" id="fuel-log">Nothing logged yet today.</div>';
 
   const todayW=f.weights[dayKey()], lw=latestWeight(), tr=weightTrend(), v=fuelVerdict();
-  h+='<div class="section-label">Weigh-in <span class="sl-sub">morning, after the bathroom, before food</span></div><div class="card fuel-weigh">';
+  h+='<div class="section-label">Weigh-in <span class="sl-sub">once a week — same morning, after the bathroom, before food</span></div><div class="card fuel-weigh">';
   h+='<div class="fw-row"><input id="fw-in" class="fin" type="number" inputmode="decimal" step="0.1" placeholder="'+(lw?lw+' kg':'kg')+'" value="'+(todayW||'')+'"><button class="fbtn" id="fw-save" onclick="fuelWeigh()">'+(todayW?'Update':'Save')+'</button></div>';
-  h+='<div class="fw-stats"><div><b id="fw-cur">'+(tr.cur?tr.cur.avg.toFixed(1):'—')+'</b><span>this week</span></div><div><b>'+(tr.prev?tr.prev.avg.toFixed(1):'—')+'</b><span>last week</span></div><div><b>'+(tr.delta!==null?((tr.delta>=0?'+':'')+tr.delta.toFixed(2)):'—')+'</b><span>kg / week</span></div></div>';
+  h+='<div class="fw-stats"><div><b id="fw-cur">'+(tr.cur?tr.cur.w.toFixed(1):'—')+'</b><span>latest</span></div><div><b>'+(tr.prev?tr.prev.w.toFixed(1):'—')+'</b><span>week before</span></div><div><b>'+(tr.perWk!==null?((tr.perWk>=0?'+':'')+tr.perWk.toFixed(2)):'—')+'</b><span>kg / week</span></div></div>';
   h+='<div class="verdict '+v.cls+'" id="fuel-verdict">'+v.msg+'</div>';
   if(v.adj && !v.locked) h+='<button class="fbtn wide" id="fuel-apply" onclick="fuelApply()">Apply '+(v.adj>0?'+':'')+v.adj+' kcal to both targets</button>';
   h+='</div>';
@@ -2760,7 +2800,7 @@ function renderFuelCard(){
   el.innerHTML='<div class="fc-head"><span>Fuel today</span><span class="fc-go">Log →</span></div>'+
     '<div class="fc-row"><div class="fc-l">Protein</div><div class="fc-bar"><i style="width:'+pp+'%"></i></div><div class="fc-v" id="fc-pv">'+Math.round(tot.p)+'/'+T.p+'g</div></div>'+
     '<div class="fc-row"><div class="fc-l">Calories</div><div class="fc-bar k"><i style="width:'+kp+'%"></i></div><div class="fc-v">'+Math.round(tot.k)+'/'+T.k+'</div></div>'+
-    '<div class="fc-w">'+(tr.cur?('7-day avg '+tr.cur.avg.toFixed(1)+'kg'+(tr.delta!==null?' · '+(tr.delta>=0?'+':'')+tr.delta.toFixed(2)+'kg/wk':'')):'No weigh-ins yet — tap to log one')+'</div>';
+    '<div class="fc-w">'+(tr.cur?('Latest '+tr.cur.w.toFixed(1)+'kg'+(tr.perWk!==null?' · '+(tr.perWk>=0?'+':'')+tr.perWk.toFixed(2)+'kg/wk':'')):'No weigh-ins yet — tap to log one')+'</div>';
 }
 
 function setBodyTab(k){
@@ -2809,7 +2849,7 @@ function coachContext(){
       ' Today’s planned session: '+(wo?wo.title:'rest day')+'. Week type: '+S.weekType+'.'+
       ' Run return: week '+getRunWeek()+', '+runsThisWeek()+' of '+runCap()+' runs done this week.'+
       ' Fuel today: '+Math.round(tot.p)+'/'+T.p+'g protein, '+Math.round(tot.k)+'/'+T.k+' kcal ('+todayType()+' day).'+
-      (tr.cur?' 7-day avg weight '+tr.cur.avg.toFixed(1)+'kg'+(tr.delta!==null?', trend '+(tr.delta>=0?'+':'')+tr.delta.toFixed(2)+'kg/wk':'')+'.':' No weigh-ins yet.')+
+      (tr.cur?' Latest weight '+tr.cur.w.toFixed(1)+'kg'+(tr.perWk!==null?', trend '+(tr.perWk>=0?'+':'')+tr.perWk.toFixed(2)+'kg/wk':'')+'.':' No weigh-ins yet.')+
       ' Days to 4 Feb: '+daysToFeb4()+'.';
   }catch(e){ return ''; }
 }

@@ -1,6 +1,6 @@
 /* Burning off the squishiness — service worker
    Bump CACHE on every deploy. That is the only thing you have to remember. */
-const CACHE = 'squish-v5';
+const CACHE = 'squish-v6';
 
 const ASSETS = [
   './',
