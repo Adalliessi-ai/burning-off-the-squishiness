@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0E0C0F">
+<meta name="theme-color" content="#0E131C">
 <title>Burning off the squishiness</title>
 <meta name="description" content="Adrian's training, rehab and nutrition system.">
 <meta name="mobile-web-app-capable" content="yes">
@@ -31,40 +31,42 @@
 
 /* ═══════════════════════════════════════════
    BURNING OFF THE SQUISHINESS — design system
-   Lime #A4EB3F on #0E0C0F · Lufga (Outfit fallback)
+   Midnight Azure #4FC3F7 on #0E131C · Lufga (Outfit fallback)
    ═══════════════════════════════════════════ */
 :root{
-  --bg:#0E0C0F;
-  --surface:#1A1A1A;
-  --surface2:#232225;
-  --surface3:#2C2B2E;
-  --border:rgba(255,255,255,.07);
-  --border2:rgba(255,255,255,.12);
+  --bg:#0E131C;
+  --surface:#172231;
+  --surface2:#223044;
+  --surface3:#2B3B52;
+  --border:rgba(255,255,255,.08);
+  --border2:rgba(255,255,255,.15);
 
-  --accent:#A4EB3F;
-  --accent-dim:#8FD92F;
-  --accent-ink:#0E0C0F;
-  --accent-wash:rgba(164,235,63,.12);
-  --accent-edge:rgba(164,235,63,.28);
+  --accent:#4FC3F7;
+  --accent-dim:#2E9BD6;
+  --accent-ink:#071019;
+  --accent-wash:rgba(79,195,247,.13);
+  --accent-edge:rgba(79,195,247,.34);
+  --glow:rgba(79,195,247,.40);
 
-  --text:#FFFFFF;
-  --text2:#B7B4BC;
-  --text3:#8A878F;
+  --text:#F2F6FF;
+  --text2:#9FB3C9;
+  --text3:#6E8098;
 
-  --green:#A4EB3F;
+  --green:#4FC3F7;
   --yellow:#F5C33F;
-  --red:#FF6B5C;
-  --blue:#6FA8FF;
+  --red:#FF6B6B;
+  --blue:#4FC3F7;
 
   --r-xl:30px; --r-lg:24px; --r-md:18px; --r-sm:12px; --r-pill:999px;
-  --shadow:0 14px 44px rgba(0,0,0,.55);
+  --shadow:0 18px 50px rgba(0,0,0,.6);
   --font:'Lufga','Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
 body{
-  background:var(--bg); color:var(--text);
+  background:radial-gradient(125% 60% at 50% -8%, rgba(79,195,247,.08), transparent 55%), var(--bg);
+  color:var(--text);
   font-family:var(--font);
   font-size:15.5px; line-height:1.48;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
@@ -90,6 +92,17 @@ button,input{font-family:inherit;}
   font-size:11px;font-weight:600;letter-spacing:1.3px;text-transform:uppercase;
   color:var(--text3);padding:22px 20px 10px;
 }
+.section-label::before{
+  content:'';display:inline-block;width:13px;height:2px;border-radius:2px;
+  background:var(--accent);vertical-align:middle;margin:-2px 9px 0 0;box-shadow:0 0 8px var(--glow);
+}
+/* emoji pop */
+.em{font-size:1.22em;display:inline-block;filter:drop-shadow(0 2px 5px rgba(0,0,0,.28));}
+/* weight chart */
+.fuel-chart{padding:16px 14px 14px;}
+.chart-cap{font-size:11.5px;color:var(--text3);margin-top:10px;line-height:1.45;}
+.chart-cap b{color:var(--accent);font-weight:700;}
+.chart-empty{font-size:13px;color:var(--text2);line-height:1.5;padding:6px 4px;}
 
 .card{
   margin:0 16px 12px;background:var(--surface);border:1px solid var(--border);
@@ -158,8 +171,9 @@ button,input{font-family:inherit;}
 /* ── HERO CARD ─────────────────────────────── */
 .today-card{
   margin:16px;padding:24px 22px 22px;border-radius:var(--r-xl);
-  background:linear-gradient(142deg,#BCF75E 0%,var(--accent) 48%,#8FD92F 100%);
+  background:linear-gradient(142deg,#7ED4FF 0%,var(--accent) 50%,#2E9BD6 100%);
   color:var(--accent-ink);cursor:pointer;position:relative;overflow:hidden;
+  box-shadow:0 22px 52px -24px var(--glow);
   transition:transform .18s ease;
 }
 .today-card:active{transform:scale(.985);}
@@ -248,7 +262,7 @@ button,input{font-family:inherit;}
   margin:0 16px 10px;background:var(--surface);border:1px solid var(--border);
   border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
 }
-.ex-card.ticked{border-color:var(--accent-edge);background:rgba(164,235,63,.04);}
+.ex-card.ticked{border-color:var(--accent-edge);background:rgba(79,195,247,.05);}
 .ex-head{padding:16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:4px;}
 .ex-name{font-size:15.5px;font-weight:600;letter-spacing:-.25px;color:var(--text);}
 .ex-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
@@ -318,7 +332,7 @@ button,input{font-family:inherit;}
   margin:0 16px 10px;background:var(--surface);border:1px solid var(--border);
   border-radius:var(--r-lg);padding:15px 16px;cursor:pointer;transition:border-color .2s;
 }
-.wu-step.ticked{border-color:var(--accent-edge);background:rgba(164,235,63,.04);}
+.wu-step.ticked{border-color:var(--accent-edge);background:rgba(79,195,247,.05);}
 .wu-step-top{display:flex;align-items:center;gap:13px;}
 .wu-num{
   width:30px;height:30px;border-radius:50%;flex-shrink:0;
@@ -362,7 +376,7 @@ button,input{font-family:inherit;}
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(16px + env(safe-area-inset-bottom,0px));
   display:flex;align-items:center;gap:4px;padding:7px;
-  background:rgba(32,31,34,.88);
+  background:rgba(22,32,47,.82);
   -webkit-backdrop-filter:blur(22px) saturate(180%);
   backdrop-filter:blur(22px) saturate(180%);
   border:1px solid var(--border2);border-radius:var(--r-pill);
@@ -381,8 +395,10 @@ button,input{font-family:inherit;}
 .nav-btn.active{
   flex-direction:row;width:auto;padding:0 17px 0 13px;height:46px;gap:7px;font-size:13.5px;font-weight:700;
   background:var(--accent);color:var(--accent-ink);
+  box-shadow:0 6px 22px -4px var(--glow);
 }
-.nav-btn svg{width:21px;height:21px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+.nav-btn svg{width:23px;height:23px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;}
+.nav-btn.active svg{width:20px;height:20px;}
 
 /* ── CHAT ──────────────────────────────────── */
 #screen-coach{flex-direction:column;padding-bottom:0;}
@@ -458,7 +474,7 @@ button,input{font-family:inherit;}
 .fbar-top b{font-size:22px;color:var(--text);font-weight:700;letter-spacing:-.5px;}
 .fbar-track{height:12px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
 .fbar-track i{display:block;height:100%;background:var(--accent);border-radius:var(--r-pill);transition:width .4s cubic-bezier(.4,0,.2,1);}
-#fuel-k .fbar-track i{background:#E8F7D0;}
+#fuel-k .fbar-track i{background:var(--accent-dim);}
 .fuel-left{font-size:13px;font-weight:600;color:var(--accent);}
 .fuel-hint{font-size:11.5px;color:var(--text3);margin-top:8px;}
 .sl-sub{text-transform:none;letter-spacing:0;font-weight:500;color:var(--text3);margin-left:6px;font-size:11px;}
@@ -520,7 +536,7 @@ button,input{font-family:inherit;}
 .fc-l{width:62px;font-size:12.5px;color:var(--text2);flex-shrink:0;}
 .fc-bar{flex:1;height:8px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
 .fc-bar i{display:block;height:100%;background:var(--accent);border-radius:var(--r-pill);}
-.fc-bar.k i{background:#E8F7D0;}
+.fc-bar.k i{background:var(--accent-dim);}
 .fc-v{font-size:12px;font-weight:700;width:76px;text-align:right;flex-shrink:0;}
 .fc-w{font-size:11.5px;color:var(--text3);margin-top:4px;}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;
@@ -618,7 +634,7 @@ button,input{font-family:inherit;}
   background:var(--surface);border:1px solid var(--border);
 }
 .phase-card.phase-now{
-  border-color:var(--accent-edge);background:rgba(164,235,63,.05);
+  border-color:var(--accent-edge);background:rgba(79,195,247,.05);
 }
 .phase-card.phase-now .phase-week{color:var(--accent);}
 .phase-card.phase-done{opacity:.52;}
@@ -1571,14 +1587,14 @@ function updateTodayCard(){
   const ttEl = document.getElementById('today-title');
   const tsEl = document.getElementById('today-sub');
   if(todaySession){
-    if(ttEl) ttEl.textContent = todaySession.label;
+    if(ttEl) ttEl.innerHTML = emph(todaySession.label);
     if(tsEl) tsEl.textContent = todaySession.sub;
     // today's SUGGESTION only — never overwrite a session you picked yourself
     S.todayKey = todaySession.key || todaySession.condKey || null;
     if(!S.sessionKey) S.sessionKey = S.todayKey || 'upper_a';
   } else {
     const wo = WORKOUTS[S.sessionKey] || WORKOUTS.upper_a;
-    if(ttEl) ttEl.textContent = wo.title;
+    if(ttEl) ttEl.innerHTML = emph(wo.title);
     if(tsEl) tsEl.textContent = wo.sub;
   }
   // rest / kids day — nothing planned, so say so and point at the picker
@@ -1883,8 +1899,8 @@ function renderSession(){
   const bannerText = isCond
     ? (workout.note || 'Conditioning session — warming up first.')
     : (()=>{ const b=getBlockInfo(); return '<b>'+b.name.toUpperCase()+'</b><br>'+b.volume+' '+b.note+' Short on sleep or food? The finisher shrinks first, never the lifting.'; })();
-  const bannerColor = isCond ? 'rgba(245,195,63,.10)' : 'rgba(164,235,63,.10)';
-  const bannerBorder = isCond ? 'rgba(245,195,63,.30)' : 'rgba(164,235,63,.28)';
+  const bannerColor = isCond ? 'rgba(79,195,247,.06)' : 'rgba(79,195,247,.10)';
+  const bannerBorder = isCond ? 'rgba(79,195,247,.20)' : 'rgba(79,195,247,.30)';
   const bannerTextColor = isCond ? 'var(--yellow)' : 'var(--accent)';
   const bannerIcon = isCond ? '🏃' : '⚡';
   const banner=`<div style="margin:10px 16px;padding:10px 14px;background:${bannerColor};border:1px solid ${bannerBorder};border-radius:16px;font-size:12.5px;color:${bannerTextColor}">
@@ -2041,7 +2057,7 @@ function renderTrack(){
 function renderMobility(){
   const container = document.getElementById('mobility-content');
   if(!container) return;
-  const typeColors = {Release:'#FF6B5C',Reset:'#F5C33F',Stretch:'#A4EB3F',Activation:'#B98BFA',Mobility:'#6FA8FF'};
+  const typeColors = {Release:'#9FB3C9',Reset:'#9FB3C9',Stretch:'#FFFFFF',Activation:'#9FB3C9',Mobility:'#9FB3C9'};
 
   const G = {}; let _g = 'achilles';
   let html = '';
@@ -2086,7 +2102,7 @@ function renderMobility(){
     </div>`;
   });
   html += '<div class="section-label">Scapular Loading Protocol</div>';
-  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(164,235,63,.10);border:1px solid rgba(164,235,63,.28);border-radius:16px;font-size:12.5px;color:var(--accent)">Push-up plus + serratus punch daily. Five minutes. That is the whole game.</div>';
+  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(79,195,247,.10);border:1px solid rgba(79,195,247,.30);border-radius:16px;font-size:12.5px;color:var(--accent)">Push-up plus + serratus punch daily. Five minutes. That is the whole game.</div>';
   SCAPULA.loading.forEach((item,i) => {
     html += `<div class="ex-card">
       <div class="ex-head" onclick="toggleMob('sl${i}')">
@@ -2130,7 +2146,7 @@ function renderMobility(){
   
   // Daily protocol
   html += '<div class="section-label">Daily Protocol — Do These Every Day</div>';
-  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(164,235,63,.10);border:1px solid rgba(164,235,63,.28);border-radius:16px;font-size:12.5px;color:var(--accent)">These 4 are your non-negotiables. The suboccipital ball release before bed is the single most important one.</div>';
+  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(79,195,247,.10);border:1px solid rgba(79,195,247,.30);border-radius:16px;font-size:12.5px;color:var(--accent)">These 4 are your non-negotiables. The suboccipital ball release before bed is the single most important one.</div>';
   MOBILITY.daily.forEach((item,i) => {
     const col = typeColors[item.type] || '#8D8B8E';
     html += `<div class="ex-card">
@@ -2152,7 +2168,7 @@ function renderMobility(){
   
   // Reset routine
   html += '<div class="section-label">Neck Reset Routine — When It Flares</div>';
-  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(245,195,63,.10);border:1px solid rgba(245,195,63,.22);border-radius:16px;font-size:12.5px;color:var(--yellow)">When the neck is tight or you feel the urge to crack it — run through these instead. 5 minutes.</div>';
+  html += '<div style="margin:0 16px 8px;padding:10px 14px;background:rgba(79,195,247,.06);border:1px solid rgba(79,195,247,.22);border-radius:16px;font-size:12.5px;color:var(--yellow)">When the neck is tight or you feel the urge to crack it — run through these instead. 5 minutes.</div>';
   MOBILITY.reset.forEach((item,i) => {
     const col = typeColors[item.type] || '#8D8B8E';
     html += `<div class="ex-card">
@@ -2381,6 +2397,38 @@ function fuelWeigh(){
   const f=fuelLoad(); f.weights[dayKey()]=Math.round(v*10)/10;
   if(!f.settings.set) fuelRecalc(true);
   fuelSave(); renderFuel(); renderFuelCard(); fuelToast('Weigh-in saved');
+}
+function emph(s){
+  s=String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return s.replace(/(\p{Extended_Pictographic})/gu,'<span class="em">$1</span>');
+}
+function weightChartSVG(){
+  const f=fuelLoad();
+  const pts=Object.keys(f.weights).map(k=>({d:new Date(k+'T00:00:00'),w:f.weights[k]}))
+    .filter(e=>!isNaN(+e.d)).sort((a,b)=>a.d-b.d);
+  if(!pts.length) return '<div class="chart-empty">Log your weekly weigh-in to see your trend — and whether you’re sitting inside the lean-gain zone.</div>';
+  const w0=pts[0].w, t0=pts[0].d;
+  const wkOf=p=>(p.d-t0)/(7*864e5);
+  const lastWk=wkOf(pts[pts.length-1]);
+  const spanWk=Math.max(lastWk,6);
+  const ys=pts.map(p=>p.w).concat([w0, w0+0.3*spanWk]);
+  let ymin=Math.min(...ys), ymax=Math.max(...ys);
+  const padY=(ymax-ymin)*0.18||0.6; ymin-=padY; ymax+=padY;
+  const W=320,H=150,L=28,R=12,Tp=14,Bm=20;
+  const px=t=>L+(t/spanWk)*(W-L-R);
+  const py=v=>Tp+(1-(v-ymin)/(ymax-ymin))*(H-Tp-Bm);
+  const lo=t=>w0+0.1*t, hi=t=>w0+0.3*t;
+  const band='<polygon points="'+px(0).toFixed(1)+','+py(lo(0)).toFixed(1)+' '+px(spanWk).toFixed(1)+','+py(lo(spanWk)).toFixed(1)+' '+px(spanWk).toFixed(1)+','+py(hi(spanWk)).toFixed(1)+' '+px(0).toFixed(1)+','+py(hi(0)).toFixed(1)+'" fill="var(--accent-wash)"/>';
+  const dash='stroke="var(--accent-edge)" stroke-width="1" stroke-dasharray="3 3"';
+  const edges='<line x1="'+px(0).toFixed(1)+'" y1="'+py(lo(0)).toFixed(1)+'" x2="'+px(spanWk).toFixed(1)+'" y2="'+py(lo(spanWk)).toFixed(1)+'" '+dash+'/><line x1="'+px(0).toFixed(1)+'" y1="'+py(hi(0)).toFixed(1)+'" x2="'+px(spanWk).toFixed(1)+'" y2="'+py(hi(spanWk)).toFixed(1)+'" '+dash+'/>';
+  let d=''; pts.forEach((p,i)=>{ d+=(i?'L':'M')+px(wkOf(p)).toFixed(1)+' '+py(p.w).toFixed(1)+' '; });
+  const line=pts.length>1?'<path d="'+d+'" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>':'';
+  const dots=pts.map((p,i)=>{const last=i===pts.length-1;return '<circle cx="'+px(wkOf(p)).toFixed(1)+'" cy="'+py(p.w).toFixed(1)+'" r="'+(last?4.5:3)+'" fill="'+(last?'var(--accent)':'var(--bg)')+'" stroke="var(--accent)" stroke-width="2"/>';}).join('');
+  const last=pts[pts.length-1];
+  const lx=Math.max(L+14,Math.min(px(wkOf(last)),W-20));
+  const lbl='<text x="'+lx.toFixed(1)+'" y="'+(py(last.w)-9).toFixed(1)+'" fill="var(--accent)" font-size="11" font-weight="700" text-anchor="middle">'+last.w.toFixed(1)+'</text>';
+  const yl='<text x="3" y="'+(py(ymax)+7).toFixed(1)+'" fill="var(--text3)" font-size="9">'+ymax.toFixed(1)+'</text><text x="3" y="'+(py(ymin)).toFixed(1)+'" fill="var(--text3)" font-size="9">'+ymin.toFixed(1)+'</text>';
+  return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="display:block;overflow:visible">'+band+edges+line+dots+lbl+yl+'</svg>';
 }
 function weightTrend(){
   // One weigh-in a week. Compare the latest against the previous one (≥4 days apart),
@@ -2761,6 +2809,8 @@ function renderFuel(){
   h+='<div class="verdict '+v.cls+'" id="fuel-verdict">'+v.msg+'</div>';
   if(v.adj && !v.locked) h+='<button class="fbtn wide" id="fuel-apply" onclick="fuelApply()">Apply '+(v.adj>0?'+':'')+v.adj+' kcal to both targets</button>';
   h+='</div>';
+
+  h+='<div class="section-label">Weight trend <span class="sl-sub">lean-gain zone shaded</span></div><div class="card fuel-chart">'+weightChartSVG()+'<div class="chart-cap">Shaded band is <b>+0.1 to +0.3 kg a week</b> — the lean-gain zone. Keep your line inside it: above means you’re adding fat, below means you’re stalling.</div></div>';
 
   let hits=0, bars='';
   for(let i=6;i>=0;i--){
